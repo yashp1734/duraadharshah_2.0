@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" />
+  <title>Sign in & Sign up Form</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin">
+        <form action="#" class="sign-in-form">
+          <h2 class="title">Sign in</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" required/>
+          </div>
+
+          <div class="input-field">
+            <i class="fas fa-lock"></i> 
+            <input id="password" type="password" placeholder="Password" required/>
+            <span class="toggle-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img src="img/eye-slash.svg"></span>
+          </div>
+          
+          <a href="truefactor.html" class="forgot-pass-txt">Forgot Password?</a>
+          
+          <input type="submit" value="Login" class="btn solid" onclick="dashboard(event)"/>
+          
+          <p class="social-text">Or Sign in with social platforms</p>
+          <div class="social-media">
+            <a href="#" class="social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-google"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>New here ?</h3>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+            ex ratione. Aliquid!
+          </p>
+        </div>
+        <img src="img/log.svg" class="image" alt="" />
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Keyboard  -->
+  <!-- Keyboard  -->
+  <div class="keyboard" id="virtual-keyboard">
+    <div class="row">
+      <button class="btn-keyboard" onclick="handleKey('1')">1</button>
+      <button class="btn-keyboard" onclick="handleKey('2')">2</button>
+      <button class="btn-keyboard" onclick="handleKey('3')">3</button>
+      <button class="btn-keyboard" onclick="handleKey('4')">4</button>
+      <button class="btn-keyboard" onclick="handleKey('5')">5</button>
+      <button class="btn-keyboard" onclick="handleKey('6')">6</button>
+      <br>
+      <button class="btn-keyboard" onclick="handleKey('7')">7</button>
+      <button class="btn-keyboard" onclick="handleKey('8')">8</button>
+      <button class="btn-keyboard" onclick="handleKey('9')">9</button>
+      <button class="btn-keyboard" onclick="handleKey('0')">0</button>
+      <button class="btn-keyboard" onclick="handleKey('@')">@</button>
+      <button class="btn-keyboard" onclick="handleKey('#')">#</button>
+      <br>
+      <button class="btn-keyboard" onclick="handleKey('_')">_</button>
+      <button class="btn-keyboard" onclick="handleKey('$')">$</button>
+      <button class="btn-keyboard" onclick="handleKey('%')">%</button>
+      <button class="btn-keyboard" onclick="handleKey('!')">!</button>
+      <button class="delete btn-keyboard" onclick="deleteChar()">Delete</button>
+    </div>
+    <button class="enter btn-keyboard" onclick="entervar('')">Enter</button>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

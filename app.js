@@ -115,8 +115,15 @@ toggleIcon.addEventListener('click', () => {
   }
 });
 
+window.addEventListener('load', () => {
+  const recaptcha = document.querySelector('.g-recaptcha');
+  if (recaptcha) {
+    $recaptcha.setAttribute('required', 'required');
+  }
+});
+
 function validateForm() {
-  
+
   var inputs = document.querySelectorAll('input[required]');
 
   for (var i = 0; i < inputs.length; i++) {
@@ -124,18 +131,23 @@ function validateForm() {
       return false; 
     }
   }
+
   return true;
 }
 
 function dashboard(event) {
   // Check if the form is valid
-  if (!event.target.form.checkValidity()) {
-    // If the form is not valid, let the browser show the validation messages
-    return;
-  }
+  // if (!event.target.form.checkValidity()) {
+  //   // If the form is not valid, let the browser show the validation messages
+  //   return;
+  // }
 
-  // Prevent form submission
-  event.preventDefault();
+  // if (!validateCaptcha()) {
+  //   event.preventDefault(); // Prevent the form from being submitted
+  // } 
+
+  // // // Prevent form submission
+  // // event.preventDefault();
 
   if (validateForm()) {
     location.href = "dashboard.html";
@@ -145,26 +157,26 @@ function dashboard(event) {
 
 //////////////////////   Google Captcha's JS //////////////////////////////////////
 
-function validateCaptcha() {
-  // Get the response from the reCAPTCHA widget
-  var response = grecaptcha.getResponse();
+// function validateCaptcha() {
+//   // Get the response from the reCAPTCHA widget
+//   var response = grecaptcha.getResponse();
 
-  // Check if the response is empty (user hasn't completed the captcha)
-  if (response.length === 0) {
-    alert("Please complete the reCAPTCHA verification.");
-    return false; // Prevent form submission
-  }
+//   // Check if the response is empty (user hasn't completed the captcha)
+//   if (response.length === 0) {
+//     // alert("Please complete the reCAPTCHA verification.");
+//     return false; // Prevent form submission
+//   }
 
-  // If the response is not empty, allow form submission
-  return true;
-}
+//   // If the response is not empty, allow form submission
+//   return true;
+// }
 
-function dashboard(event) {
-  // Validate the captcha before allowing form submission
-  if (!validateCaptcha()) {
-    event.preventDefault(); // Prevent the form from being submitted
-  } 
-}
+// function dashboard(event) {
+//   // Validate the captcha before allowing form submission
+//   if (!validateCaptcha()) {
+//     event.preventDefault(); // Prevent the form from being submitted
+//   } 
+// }
 
 fetch('http://localhost:5500/upload', {
   method: "POST",
@@ -181,9 +193,6 @@ fetch('http://localhost:5500/upload', {
 })
 .catch(err => console.error(err))
 
-function togglepasswordvisibility() {
-  // Your existing togglepasswordvisibility function
-}
 
 const express = require('express');
 const cors = require('cors');

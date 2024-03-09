@@ -142,6 +142,49 @@ function dashboard(event) {
   }
 }
 
+
+//////////////////////   Google Captcha's JS //////////////////////////////////////
+
+function validateCaptcha() {
+  // Get the response from the reCAPTCHA widget
+  var response = grecaptcha.getResponse();
+
+  // Check if the response is empty (user hasn't completed the captcha)
+  if (response.length === 0) {
+    alert("Please complete the reCAPTCHA verification.");
+    return false; // Prevent form submission
+  }
+
+  // If the response is not empty, allow form submission
+  return true;
+}
+
+function dashboard(event) {
+  // Validate the captcha before allowing form submission
+  if (!validateCaptcha()) {
+    event.preventDefault(); // Prevent the form from being submitted
+  } 
+}
+
+fetch('http://localhost:5500/upload', {
+  method: "POST",
+  body: params,
+})
+
+.then(res => res.json())
+.then(data => {
+  if(data.captchaSuccess) {
+    console.log("validation successfull");
+  } else {
+    console.error("validation faield");
+  }
+})
+.catch(err => console.error(err))
+
+function togglepasswordvisibility() {
+  // Your existing togglepasswordvisibility function
+}
+
 const express = require('express');
 const cors = require('cors');
 const { URLSearchParams } = require('url');

@@ -1,3 +1,5 @@
+const { error } = require("console");
+
 const container = document.querySelector(".container");
 
 // Keyboard-pop-up
@@ -142,38 +144,47 @@ function dashboard(event) {
   }
 }
 
-const express = require('express');
-const cors = require('cors');
-const { URLSearchParams } = require('url');
-const app = express();
-const port = 3000;
 
-app.use(cors());
 
-app.use(express.urlencoded({ extended: false}));
 
-app.post('/upload', function(req,res){
+//////////////////////   Google Captcha's JS //////////////////////////////////////
 
-    const params = new URLSearchParams({
-        secret: '6Lex35EpAAAAANMltMj0EMchbC8P2TfhyhdVbqHM',
-        response: req.body['g-recaptcha-response'],
-        remoteip: req.ip,
-    });
+function validateCaptcha() {
+  // Get the response from the reCAPTCHA widget
+  var response = grecaptcha.getResponse();
 
-    fetch('https://www.google.com/recaptcha/api/siteverify' ,{
-        method: "POST",
-        body: params,
-    })
-    .then(res => res.json())
-    .then(data => {if (data.success){
-        res.json({captchaSuccess: true});
-    }
-    else{
-        res.json({captchaSuccess: false});
-    }
+  // Check if the response is empty (user hasn't completed the captcha)
+  if (response.length === 0) {
+    alert("Please complete the reCAPTCHA verification.");
+    return false; // Prevent form submission
+  }
+
+  // If the response is not empty, allow form submission
+  return true;
+}
+
+function dashboard(event) {
+  // Validate the captcha before allowing form submission
+  if (!validateCaptcha()) {
+    event.preventDefault(); // Prevent the form from being submitted
+  } 
+}
+
+fetch('http://localhost:5500/upload', {
+  method: "POST",
+  body: params,
 })
-});
 
-app.listen(port, () => {
-    console.log(`App Running On Port ${port}`);
-});
+.then(res => res.json())
+.then(data => {
+  if(data.captchaSuccess) {
+    console.log("validation successfull");
+  } else {
+    console.error("validation faield");
+  }
+})
+.catch(err => console.error(err))
+
+function togglepasswordvisibility() {
+  // Your existing togglepasswordvisibility function
+}

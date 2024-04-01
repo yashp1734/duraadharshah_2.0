@@ -15,11 +15,11 @@
   <div class="container">
     <div class="forms-container">
       <div class="signin">
-        <form action="dashboard.html" class="sign-in-form">
+        <form class="sign-in-form" id="MainForm">
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" required/>
+            <input id="email" type="email" placeholder="Email" required/>
           </div>
 
           <div class="input-field">
@@ -31,9 +31,9 @@
           <a href="truefactor.html" class="forgot-pass-txt">Forgot Password?</a>
 
           <!---------------------------------------Google Captchas-------------------------------------------------------->
-          <div class="g-recaptcha" data-sitekey="6Lex35EpAAAAAJAoIHCTacAKy2QiMmrbMjZ4ZeEJ"></div>
+          <!-- <div class="g-recaptcha" data-sitekey="6Lex35EpAAAAAJAoIHCTacAKy2QiMmrbMjZ4ZeEJ"></div> -->
           
-          <input type="submit" value="Login" class="btn solid" onclick="dashboard(event)"/>
+          <input type="submit" value="Login" class="btn solid" onclick="handleKey()" />
           
           <p class="social-text">Or Sign in with social platforms</p>
           <div class="social-media">
@@ -98,6 +98,50 @@
   </div>
   <!-- <script src="script1.js"></script> -->
   <script src="script.js"></script>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import {getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
+      authDomain: "duraadharshah-ca0ca.firebaseapp.com",
+      databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
+      projectId: "duraadharshah-ca0ca",
+      storageBucket: "duraadharshah-ca0ca.appspot.com",
+      messagingSenderId: "625665554854",
+      appId: "1:625665554854:web:7dc2e4b4c0469413603767",
+      measurementId: "G-W9RFMNZKC9"
+    };
+  
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const auth = getAuth(app);
+    const dbref = ref(db);
+
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let MainForm = document.getElementById('MainForm');
+
+    let SignInUser = evt => {
+      evt.preventDefault();
+
+      signInWithEmailAndPassword(auth, email.value, password.value)
+      .then((credentials)=>{
+        window.location.href = "dashboard.html";
+      })
+      .catch((error)=>{
+        alert(error.message);
+        console.log(error.code);
+        console.log(error.message);
+      })
+    }
+
+    MainForm.addEventListener('submit',SignInUser);
+
+  </script>
+
 </body>
 
 </html>

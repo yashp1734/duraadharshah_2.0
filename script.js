@@ -115,51 +115,51 @@ toggleIcon.addEventListener('click', () => {
   }
 });
 
-window.addEventListener('load', () => {
-  const recaptcha = document.querySelector('.g-recaptcha');
-  if (recaptcha) {
-    $recaptcha.setAttribute('required', 'required');
-  }
-});
+// window.addEventListener('load', () => {
+//   const recaptcha = document.querySelector('.g-recaptcha');
+//   if (recaptcha) {
+//     $recaptcha.setAttribute('required', 'required');
+//   }
+// });
 
-function validateForm() {
+// function validateForm() {
 
-  var inputs = document.querySelectorAll('input[required]');
+//   var inputs = document.querySelectorAll('input[required]');
 
-  for (var i = 0; i < inputs.length; i++) {
-    if (inputs[i].value === '') {
-      return false; 
-    }
-  }
-  if(validateCaptcha(true)){
-    return true;
-  }
-}
+//   for (var i = 0; i < inputs.length; i++) {
+//     if (inputs[i].value === '') {
+//       return false; 
+//     }
+//   }
+//   if(validateCaptcha(true)){
+//     return true;
+//   }
+// }
 
-//Google Captcha's JS
+// //Google Captcha's JS
 
-function validateCaptcha() {
-  var response = grecaptcha.getResponse();
+// function validateCaptcha() {
+//   var response = grecaptcha.getResponse();
 
-  if (response.length === 0) {
-    alert("Please complete the reCAPTCHA verification.");
-    return false; 
-  }
-  return true;
-}
+//   if (response.length === 0) {
+//     alert("Please complete the reCAPTCHA verification.");
+//     return false; 
+//   }
+//   return true;
+// }
 
-////////////
+// ////////////
 
-function dashboard(event) {
-  if(!event.target.form.checkValidity()){
-    return;
-  }
+// function dashboard(event) {
+//   if(!event.target.form.checkValidity()){
+//     return;
+//   }
 
-  if (!validateCaptcha()) {
-    // Prevent form submission
-    event.preventDefault();
-  }
-}
+//   if (!validateCaptcha()) {
+//     // Prevent form submission
+//     event.preventDefault();
+//   }
+// }
 
 
 
@@ -168,17 +168,28 @@ function dashboard(event) {
 
 
 
-fetch('http://localhost:5500/upload', {
-  method: "POST",
-  body: params,
-})
+// fetch('http://localhost:5500/upload', {
+//   method: "POST",
+//   body: params,
+// })
 
-.then(res => res.json())
-.then(data => {
-  if(data.captchaSuccess) {
-    console.log("validation successfull");
-  } else {
-    console.error("validation faield");
-  }
-})
-.catch(err => console.error(err))
+// .then(res => res.json())
+// .then(data => {
+//   if(data.captchaSuccess) {
+//     console.log("validation successfull");
+//   } else {
+//     console.error("validation faield");
+//   }
+// })
+// .catch(err => console.error(err))
+
+function handleKey(){
+
+  var inputElement = document.getElementById("virtual-keyboard");
+  var inputValue = inputElement.value;
+
+  console.log("Input Value:", inputValue);
+
+  inputElement.value = "";
+
+}

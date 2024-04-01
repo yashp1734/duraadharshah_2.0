@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <form id="MainForm">
+    <input id="email" type="email" placeholder="Email" required />
+    <input id="password" type="password" placeholder="Password" required />
+    <input type="submit" value="Register" class="btn solid" />
+  </form>
+
+
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
+      authDomain: "duraadharshah-ca0ca.firebaseapp.com",
+      databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
+      projectId: "duraadharshah-ca0ca",
+      storageBucket: "duraadharshah-ca0ca.appspot.com",
+      messagingSenderId: "625665554854",
+      appId: "1:625665554854:web:7dc2e4b4c0469413603767",
+      measurementId: "G-W9RFMNZKC9"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const auth = getAuth(app);
+
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let MainForm = document.getElementById('MainForm');
+
+    let RegisterUser = evt => {
+      evt.preventDefault();
+
+      createUserWithEmailAndPassword(auth, email.value, password.value)
+        .then((credentials) => {
+
+        })
+        .catch((error) => {
+          alert(error.message);
+          console.log(error.code);
+          console.log(error.message);
+        })
+    }
+
+    MainForm.addEventListener('submit', RegisterUser);
+
+  </script>
+</body>
+
+</html>

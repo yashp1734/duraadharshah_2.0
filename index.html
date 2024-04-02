@@ -19,22 +19,23 @@
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input id="email" type="email" placeholder="Email" required/>
+            <input id="email" type="email" placeholder="Email" required />
           </div>
 
           <div class="input-field">
-            <i class="fas fa-lock"></i> 
-            <input id="password" type="password" placeholder="Password" required/>
-            <span class="toggle-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img src="img/eye-slash.svg"></span>
+            <i class="fas fa-lock"></i>
+            <input id="password" type="password" placeholder="Password" required />
+            <span class="toggle-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img
+                src="img/eye-slash.svg"></span>
           </div>
-          
+
           <a href="truefactor.html" class="forgot-pass-txt">Forgot Password?</a>
 
           <!---------------------------------------Google Captchas-------------------------------------------------------->
           <!-- <div class="g-recaptcha" data-sitekey="6Lex35EpAAAAAJAoIHCTacAKy2QiMmrbMjZ4ZeEJ"></div> -->
-          
+
           <input type="submit" value="Login" class="btn solid" onclick="handleKey()" />
-          
+
           <p class="social-text">Or Sign in with social platforms</p>
           <div class="social-media">
             <a href="#" class="social-icon">
@@ -102,7 +103,7 @@
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-    import {getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
     const firebaseConfig = {
       apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
       authDomain: "duraadharshah-ca0ca.firebaseapp.com",
@@ -113,8 +114,8 @@
       appId: "1:625665554854:web:7dc2e4b4c0469413603767",
       measurementId: "G-W9RFMNZKC9"
     };
-  
-    
+
+
     const app = initializeApp(firebaseConfig);
     const db = getDatabase();
     const auth = getAuth(app);
@@ -128,17 +129,27 @@
       evt.preventDefault();
 
       signInWithEmailAndPassword(auth, email.value, password.value)
-      .then((credentials)=>{
-        window.location.href = "dashboard.html";
-      })
-      .catch((error)=>{
-        alert(error.message);
-        console.log(error.code);
-        console.log(error.message);
-      })
+        .then((credentials) => {
+          get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
+            if (snapshot.exists) {
+              sessionStorage.setItem("user-info", JSON.stringify({
+                firstname: snapshot.val().firstname,
+                lastname: snapshot.val().lastname
+              }))
+              sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+              window.location.href = 'dashboard.html';
+
+            }
+          })
+        })
+        .catch((error) => {
+          alert(error.message);
+          console.log(error.code);
+          console.log(error.message);
+        })
     }
 
-    MainForm.addEventListener('submit',SignInUser);
+    MainForm.addEventListener('submit', SignInUser);
 
   </script>
 

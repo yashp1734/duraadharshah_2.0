@@ -32,10 +32,9 @@
                 <span class="material-icons-sharp">password</span>
                 <h3>Change Password</h3>
             </a>
-            <a href="index.html">
-                <span class="material-icons-sharp" onclick="">logout</span>
+            
+                <button class="material-icons-sharp" type="button" id="signoutbutton">logout</button>
                 <h3>Logout</h3>
-            </a>
         </div>
         <div id="profile-btn">
             <span class="material-icons-sharp">person</span>
@@ -198,5 +197,26 @@
 
     <script src="timeTable.js"></script>
     <script src="app-dashboard.js"></script>
+
+    <script>
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let userInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let SignoutBtn = document.getElementById('signoutbutton')
+
+        let Signout = () =>{
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+            window.location.href = 'index.html'
+        }
+        
+        let CheckCred = () => {
+            if(!sessionStorage.getItem("user-creds"))
+                window.location.href = 'index.html';
+        }
+
+        window.addEventListener('load',CheckCred);
+        SignoutBtn.addEventListener('click',Signout);
+        
+    </script>
 </body>
 </html>

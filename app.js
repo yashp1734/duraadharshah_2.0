@@ -33,3 +33,24 @@
 // app.listen(port, () => {
 //     console.log(`App Running On Port ${port}`);
 // });
+
+const otpInputs = document.querySelectorAll('.otp-field input');
+
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', (event) => {
+            const currentInput = event.target;
+            const maxLength = parseInt(currentInput.getAttribute('maxlength'));
+            
+            if (currentInput.value.length >= maxLength) {
+                if (index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            }
+        });
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Backspace' && index > 0 && !input.value) {
+                otpInputs[index - 1].focus();
+            }
+        });
+    });

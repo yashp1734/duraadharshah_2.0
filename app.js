@@ -1,143 +1,56 @@
-const container = document.querySelector(".container");
+// import express, { urlencoded } from 'express';
+// import cors from 'cors';
+// import { URLSearchParams } from 'url';
+// const app = express();
+// const port = 3000;
 
-// Keyboard-pop-up
-document.addEventListener('DOMContentLoaded', function () {
-  const passwordField = document.querySelector('input[type="password"]');
+// app.use(cors());
 
-  passwordField.addEventListener('focus', function () {
-    showKeyboard();
-    disableHardwareKeyboard();
-  });
+// app.use(urlencoded({ extended: false}));
 
-  passwordField.addEventListener('blur', function () {
-    enableHardwareKeyboard();
-  });
+// app.post('/upload', function(req,res){
 
-  const loginBtn = document.querySelector('.btn.solid'); // Corrected selector for login button
+//     const params = new URLSearchParams({
+//         secret: '6Lex35EpAAAAANMltMj0EMchbC8P2TfhyhdVbqHM',
+//         response: req.body['g-recaptcha-response'],
+//         remoteip: req.ip,
+//     });
 
-  loginBtn.addEventListener('click', function () { // Corrected event listener name
-    hideKeyboard();
-  });
+//     fetch('https://www.google.com/recaptcha/api/siteverify' ,{
+//         method: "POST",
+//         body: params,
+//     })
+//     .then(res => res.json())
+//     .then(data => {if (data.success){
+//         res.json({captchaSuccess: true});
+//     }
+//     else{
+//         res.json({captchaSuccess: false});
+//     }
+// })
+// });
 
-  const virtualKeyboardButtons = document.querySelectorAll('.btn-keyboard');
+// app.listen(port, () => {
+//     console.log(`App Running On Port ${port}`);
+// });
 
-  virtualKeyboardButtons.forEach(function (button) {
-    button.addEventListener('click', function (event) {
-      event.preventDefault();
-      handleKey(button.textContent);
+const otpInputs = document.querySelectorAll('.otp-field input');
+
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', (event) => {
+            const currentInput = event.target;
+            const maxLength = parseInt(currentInput.getAttribute('maxlength'));
+            
+            if (currentInput.value.length >= maxLength) {
+                if (index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            }
+        });
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Backspace' && index > 0 && !input.value) {
+                otpInputs[index - 1].focus();
+            }
+        });
     });
-  });
-});
-
-function showKeyboard() {
-  document.getElementById('virtual-keyboard').style.display = 'block';
-}
-
-function hideKeyboard() {
-  document.getElementById('virtual-keyboard').style.display = 'none';
-}
-
-function disableHardwareKeyboard() {
-  document.addEventListener('keydown', preventDefault);
-}
-
-function enableHardwareKeyboard() {
-  document.removeEventListener('keydown', preventDefault);
-}
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-const buttons = document.querySelectorAll('.btn-keyboard');
-const passwordInput = document.querySelector('input[type="password"]');
-const deleteBtn = document.querySelector('.delete');
-const enterBtn = document.querySelector('.enter');
-
-
-
-deleteBtn.addEventListener('click', () => {
-  passwordInput.value = '';
-});
-
-enterBtn.addEventListener('click', () => {
-  hideKeyboard();
-});
-
-
-
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
-
-// Filter out the digits from buttons
-const digits = Array.from(buttons).filter(button => button.innerText.match(/[0-9]/));
-
-// Shuffle the digits array
-shuffleArray(digits);
-
-// Add event listeners to buttons
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (btn.innerText !== 'Enter' && btn.innerText !== 'Delete') {
-      // Handle input before shuffling
-      if (btn.innerText !== 'Enter') {
-        passwordInput.value += btn.innerText;
-      }
-
-      // Display indices of digits
-      digits.forEach((button, index) => {
-        button.innerText = index;
-      });
-
-      // Shuffle the digits array
-      shuffleArray(digits);
-    }
-  });
-});
-
-
-const toggleIcon = document.querySelector('.toggle-icon');
-
-toggleIcon.addEventListener('click', () => {
-  const passwordInput = document.getElementById('password');
-  const svgIcon = document.getElementById('eye-icon');
-  if (passwordInput.type === 'password') {
-    passwordInput.type = 'text';
-    svgIcon.innerHTML = '<img src="img/eye.svg">';
-  } else {
-    passwordInput.type = 'password';
-    svgIcon.innerHTML = '<img src="img/eye-slash.svg">';
-  }
-});
-
-function validateForm() {
-  
-  var inputs = document.querySelectorAll('input[required]');
-
-  for (var i = 0; i < inputs.length; i++) {
-    if (inputs[i].value === '') {
-      return false; 
-    }
-  }
-  return true;
-}
-
-function dashboard(event) {
-  // Check if the form is valid
-  if (!event.target.form.checkValidity()) {
-    // If the form is not valid, let the browser show the validation messages
-    return;
-  }
-
-  // Prevent form submission
-  event.preventDefault();
-
-  if (validateForm()) {
-    location.href = "dashboard.html";
-  }
-}

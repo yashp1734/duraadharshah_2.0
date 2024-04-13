@@ -7,30 +7,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <title>Sign in & Sign up Form</title>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
   <div class="container">
     <div class="forms-container">
       <div class="signin">
-        <form action="#" class="sign-in-form">
+        <form class="sign-in-form" id="MainForm">
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" required/>
+            <input id="email" type="email" placeholder="Email"/>
           </div>
 
           <div class="input-field">
-            <i class="fas fa-lock"></i> 
-            <input id="password" type="password" placeholder="Password" required/>
-            <span class="toggle-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img src="img/eye-slash.svg"></span>
+            <i class="fas fa-lock"></i>
+            <input id="password" type="password" placeholder="Password" />
+            <span class="toggle-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img
+                src="img/eye-slash.svg"></span>
           </div>
+          <label id="forgotpasslabel" class="forgot-pass-txt" style="cursor: pointer;">Forgot Password</label>
           
-          <a href="truefactor.html" class="forgot-pass-txt">Forgot Password?</a>
-          
-          <input type="submit" value="Login" class="btn solid" onclick="dashboard(event)"/>
-          
+
+          <!---------------------------------------Google Captchas-------------------------------------------------------->
+          <!-- <div class="g-recaptcha" data-sitekey="6Lex35EpAAAAAJAoIHCTacAKy2QiMmrbMjZ4ZeEJ"></div> -->
+
+          <input type="submit" value="Login" class="btn solid" onclick="handleKey()" />
+
           <p class="social-text">Or Sign in with social platforms</p>
           <div class="social-media">
             <a href="#" class="social-icon">
@@ -92,7 +97,99 @@
     </div>
     <button class="enter btn-keyboard" onclick="entervar('')">Enter</button>
   </div>
-  <script src="app.js"></script>
+  <!-- <script src="script1.js"></script> -->
+  <script src="script.js"></script>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
+      authDomain: "duraadharshah-ca0ca.firebaseapp.com",
+      databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
+      projectId: "duraadharshah-ca0ca",
+      storageBucket: "duraadharshah-ca0ca.appspot.com",
+      messagingSenderId: "625665554854",
+      appId: "1:625665554854:web:7dc2e4b4c0469413603767",
+      measurementId: "G-W9RFMNZKC9"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const auth = getAuth(app);
+    const dbref = ref(db);
+
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let MainForm = document.getElementById('MainForm');
+    let Forgotpasslabel = document.getElementById('forgotpasslabel');
+
+    let SignInUser = evt => {
+      evt.preventDefault();
+
+      signInWithEmailAndPassword(auth, email.value, password.value)
+        .then((credentials) => {
+          get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
+            if (snapshot.exists) {
+              sessionStorage.setItem("user-info", JSON.stringify({
+                firstname: snapshot.val().firstname,
+                lastname: snapshot.val().lastname,
+                birthdate: snapshot.val().birthdate,
+                contact: snapshot.val().contact,
+                department: snapshot.val().department,
+              }))
+              sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+              window.location.href = 'dashboard.html';
+
+            }
+          })
+        })
+        .catch((error) => {
+          alert(error.message);
+          console.log(error.code);
+          console.log(error.message);
+        })
+
+    }
+
+    let ForgotPassword= ()=>{
+          sendPasswordResetEmail(auth, email.value)
+          .then(()=>{
+            alert("A password reset link has been sent to your email");
+          })
+          .catch((error)=>{
+            console.log(error.code);
+            console.log(error.message);
+          })
+        }
+
+    MainForm.addEventListener('submit', SignInUser);
+    Forgotpasslabel.addEventListener('click', ForgotPassword);
+    
+    
+
+
+    document.onkeydown=function(e){
+      if(event.keyCode == 123){
+        return false;
+      }
+
+      if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+        return false;
+      }
+
+      if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+        return false;
+      }
+
+      if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+        return false;
+      }
+    }
+  </script>
+
 </body>
 
 </html>

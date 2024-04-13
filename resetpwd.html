@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Firebase Auth Handlers</title>
+
+    <style>
+        .otp-field {
+            display: flex;
+        }
+
+        .otp-field input {
+            width: 48px;
+            font-size: 32px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 2px;
+            border: 2px solid #55525c;
+            background: #ffffff;
+            font-weight: bold;
+            color: #000000;
+            outline: none;
+            transition: all 0.1s;
+        }
+
+        .otp-field input:focus {
+            border: 2px solid #a527ff;
+            box-shadow: 0 0 2px 2px #a527ff6a;
+        }
+
+        .space {
+            margin-right: 1rem !important;
+        }
+
+        /* Hide the submit button by default */
+        #submitBtn {
+            display: none;
+        }
+    </style>
+
+    <script>
+        const AuthHandler = {
+            init: props => {
+                AuthHandler.conf = props
+                AuthHandler.bindMode()
+            },
+            bindMode: () => {
+                switch (AuthHandler.conf.mode) {
+                    case 'resetPassword':
+
+                        if (!AuthHandler.validateRequiredAuthParams()) {
+                            AuthHandler.displayErrorMessage(AuthHandler.conf.defaultErrorMessage)
+                            return
+                        }
+
+                        AuthHandler.handleResetPassword()
+                        break;
+
+                    default:
+                        AuthHandler.displayErrorMessage(AuthHandler.conf.defaultErrorMessage)
+                        break;
+                }
+            },
+            handleResetPassword: () => {
+                AuthHandler.showLoadingSpinner()
+
+                // Verify the code is valid before displaying the reset password form.
+                AuthHandler.conf.verifyPasswordResetCode(AuthHandler.conf.auth, AuthHandler.conf.oobCode).then(() => {
+                    AuthHandler.hideLoadingSpinner()
+
+                    // Display the form if we have a valid reset code.
+                    AuthHandler.showPasswordResetForm()
+
+                    AuthHandler.conf.passwordResetButton.addEventListener('click', () => {
+                        AuthHandler.hideMessages()
+
+                        // Test the password again. If it does not pass, errors will display.
+                        if (AuthHandler.conf.passwordField) {
+                            AuthHandler.showLoadingSpinner()
+
+                            // Attempt to reset the password.
+                            AuthHandler.conf.confirmPasswordReset(
+                                AuthHandler.conf.auth,
+                                AuthHandler.conf.oobCode,
+                                AuthHandler.conf.passwordField.value.trim()
+                            ).then(() => {
+                                AuthHandler.hidePasswordResetForm()
+                                AuthHandler.hideLoadingSpinner()
+                                AuthHandler.displaySuccessMessage('Password has been reset!')
+                            }).catch(() => {
+                                AuthHandler.hideLoadingSpinner()
+                                AuthHandler.displayErrorMessage('Password reset failed. Please try again.')
+                            })
+                        }
+                    });
+                }).catch(() => {
+                    AuthHandler.hideLoadingSpinner()
+                    AuthHandler.hidePasswordResetForm()
+                    AuthHandler.displayErrorMessage('Invalid password reset code. Please try again.')
+                });
+            },
+            validateRequiredAuthParams: () => {
+                // Mode is evaluated in the bindMode switch. If no mode will display default error message. So, we're just
+                // checking for a valid oobCode here.
+                return !!AuthHandler.conf.oobCode
+            },
+            setModeTitle: title => {
+                AuthHandler.conf.modeTitle.innerText = title
+            },
+            showLoadingSpinner: () => {
+                AuthHandler.conf.loading.style.display = ''
+            },
+            hideLoadingSpinner: () => {
+                AuthHandler.conf.loading.style.display = 'none'
+            },
+            showPasswordResetForm: () => {
+                AuthHandler.conf.passwordForm.style.display = '';
+            },
+            hidePasswordResetForm: () => {
+                AuthHandler.conf.passwordForm.style.display = 'none';
+            },
+            displaySuccessMessage: message => {
+                AuthHandler.hideErrorMessage()
+                AuthHandler.conf.success.innerText = message
+                AuthHandler.conf.success.style.display = ''
+            },
+            hideSuccessMessage: () => {
+                AuthHandler.conf.success.innerText = ''
+                AuthHandler.conf.success.style.display = 'none'
+            },
+            displayErrorMessage: message => {
+                AuthHandler.hideSuccessMessage()
+                AuthHandler.conf.error.innerText = message
+                AuthHandler.conf.error.style.display = ''
+            },
+            hideErrorMessage: () => {
+                AuthHandler.conf.error.innerText = ''
+                AuthHandler.conf.error.style.display = 'none'
+            },
+            hideMessages: () => {
+                AuthHandler.hideErrorMessage()
+                AuthHandler.hideSuccessMessage()
+            },
+        }
+
+    </script>
+</head>
+
+<body oncontextmenu="return false;" >
+    <div>
+        <div id="cover-spin"></div>
+        <p id="mode-title"></p>
+        <p id="error"></p>
+        <p id="success"></p>
+    </div>
+    <div id="password-form">
+        <div class="otp-field">
+            <input type="text" maxlength="1" readonly />
+            <input type="text" maxlength="1" readonly/>
+            <input type="text" maxlength="1" readonly/>
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+        </div>
+        <button id="generateButton" onclick="generateOTP();">Generate OTP</button>
+        <button id="submitBtn" type="submit">SUBMIT</button>
+
+    </div>
+    <input type="text" id="password" style="display: none;" />
+
+    <script type="module">
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        // https://firebase.google.com/docs/web/alt-setup
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
+        import {
+            applyActionCode,
+            checkActionCode,
+            confirmPasswordReset,
+            getAuth,
+            sendPasswordResetEmail,
+            verifyPasswordResetCode,
+        } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+
+        // Replace {} with your firebaseConfig
+        // https://firebase.google.com/docs/web/learn-more#config-object
+        const firebaseConfig = {
+            apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
+            authDomain: "duraadharshah-ca0ca.firebaseapp.com",
+            databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
+            projectId: "duraadharshah-ca0ca",
+            storageBucket: "duraadharshah-ca0ca.appspot.com",
+            messagingSenderId: "625665554854",
+            appId: "1:625665554854:web:7dc2e4b4c0469413603767",
+            measurementId: "G-W9RFMNZKC9"
+
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the mode and oobCode from url params
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+                get: (searchParams, prop) => searchParams.get(prop),
+            });
+
+            AuthHandler.init({
+                app,
+                auth,
+                applyActionCode,
+                checkActionCode,
+                confirmPasswordReset,
+                getAuth,
+                sendPasswordResetEmail,
+                verifyPasswordResetCode,
+                // Used by all modes to display error or success messages
+                error: document.getElementById('error'),
+                success: document.getElementById('success'),
+                // https://firebase.google.com/docs/auth/custom-email-handler#create_the_email_action_handler_page
+                mode: params.mode,
+                oobCode: params.oobCode,
+                modeTitle: document.getElementById('mode-title'),
+                loading: document.getElementById('cover-spin'),
+                // Password reset elements
+                passwordForm: document.getElementById('password-form'),
+                passwordField: document.getElementById('password'),
+                passwordResetButton: document.getElementById('submitBtn'),
+                defaultErrorMessage: 'Invalid auth parameters. Please try again.',
+            });
+        });
+    </script>
+
+    <script>
+        let otpGenerated = false; // Flag to track whether OTP is generated
+        let otpValue = ''; // Variable to store OTP value
+        let passwordField = document.getElementById('password'); // Variable to store password field
+
+        function generateOTP() {
+            if (otpGenerated) {
+                return; // If OTP is already generated, return without generating again
+            }
+
+            var otpContainer = document.querySelector('.otp-field');
+            var inputs = otpContainer.querySelectorAll('input[type="text"]');
+            otpValue = ''; // Clear otpValue
+
+            for (var i = 0; i < inputs.length; i++) {
+                // Generate a random number between 0 and 9
+                var randomNumber = Math.floor(Math.random() * 10);
+
+                // Set the value of the input field to the random number for the first three fields only
+                if (i < 3) {
+                    inputs[i].value = randomNumber;
+                }
+
+                // Set the first three input fields to read-only
+                if (i < 3) {
+                    inputs[i].setAttribute('readonly', true);
+                } else if (inputs[i].value === '') {
+                    // Focus on the first empty input field
+                    inputs[i].focus();
+                    break; // Stop the loop once the focus is set
+                }
+
+                // Concatenate the value of each input to the otpValue variable
+                otpValue += inputs[i].value;
+            }
+
+            otpGenerated = true; // Set the flag to indicate OTP is generated
+
+            // Hide the "Generate OTP" button after generating OTP for the first three fields
+            var generateButton = document.getElementById('generateButton');
+            generateButton.style.display = 'none';
+
+            // Show the submit button after OTP is generated
+            var submitBtn = document.getElementById('submitBtn');
+            submitBtn.style.display = 'block';
+        }
+
+        // Event listener for submit button
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            passwordField.value = otpValue; // Store OTP value in passwordField variable
+        });
+
+        const otpInputs = document.querySelectorAll('.otp-field input');
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (event) => {
+                const currentInput = event.target;
+                const maxLength = parseInt(currentInput.getAttribute('maxlength'));
+
+                // Update otpValue with user input
+                otpValue = '';
+                otpInputs.forEach((input) => {
+                    otpValue += input.value;
+                });
+
+                if (currentInput.value.length >= maxLength) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                }
+            });
+
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Backspace' && index > 3 && !input.value) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+
+
+
+        document.onkeydown=function(e){
+      if(event.keyCode == 123){
+        return false;
+      }
+
+      if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+        return false;
+      }
+
+      if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+        return false;
+      }
+
+      if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+        return false;
+      }
+    }
+    </script>
+</body>
+
+</html>

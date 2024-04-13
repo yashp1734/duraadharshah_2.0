@@ -1,6 +1,6 @@
  const container = document.querySelector(".container");
 
- // Keyboard-pop-up
+// Keyboard-pop-up
  document.addEventListener('DOMContentLoaded', function () {
    const passwordField = document.querySelector('input[type="password"]');
 
@@ -70,35 +70,35 @@
    for (let i = array.length - 1; i > 0; i--) {
      const j = Math.floor(Math.random() * (i + 1));
      [array[i], array[j]] = [array[j], array[i]];
-  }
-}
+   }
+ }
 
 
-// Filter out the digits from buttons
-const digits = Array.from(buttons).filter(button => button.innerText.match(/[0-9]/));
+ // Filter out the digits from buttons
+ const digits = Array.from(buttons).filter(button => button.innerText.match(/[0-9]/));
 
-// Shuffle the digits array
-shuffleArray(digits);
+ // Shuffle the digits array
+ shuffleArray(digits);
 
-// Add event listeners to buttons
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (btn.innerText !== 'Enter' && btn.innerText !== 'Delete') {
-      // Handle input before shuffling
-      if (btn.innerText !== 'Enter') {
-        passwordInput.value += btn.innerText;
-      }
+ // Add event listeners to buttons
+ buttons.forEach(btn => {
+   btn.addEventListener('click', () => {
+     if (btn.innerText !== 'Enter' && btn.innerText !== 'Delete') {
+       // Handle input before shuffling
+       if (btn.innerText !== 'Enter') {
+         passwordInput.value += btn.innerText;
+       }
 
-      // Display indices of digits
-      digits.forEach((button, index) => {
-        button.innerText = index;
-      });
+       // Display indices of digits
+       digits.forEach((button, index) => {
+         button.innerText = index;
+       });
 
-      // Shuffle the digits array
-      shuffleArray(digits);
-    }
-  });
-});
+       // Shuffle the digits array
+       shuffleArray(digits);
+     }
+   });
+ });
 
 
 const toggleIcon = document.querySelector('.toggle-icon');

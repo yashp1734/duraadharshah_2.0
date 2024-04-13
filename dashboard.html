@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <body>
     <header>
         <div class="logo" title="University Management System">
@@ -23,15 +25,15 @@
             <a href="timetable.html" onclick="timeTableAll()">
                 <span class="material-icons-sharp">today</span>
                 <h3>Time Table</h3>
-            </a> 
+            </a>
             <a href="exam.html">
                 <span class="material-icons-sharp">grid_view</span>
                 <h3>Examination</h3>
             </a>
-            
-            
-                <button class="material-icons-sharp" type="button" id="signoutbutton">logout</button>
-                <h3>Logout</h3>
+
+
+            <button class="material-icons-sharp" type="button" id="signoutbutton">logout</button>
+            <h3>Logout</h3>
         </div>
         <div id="profile-btn">
             <span class="material-icons-sharp">person</span>
@@ -40,7 +42,7 @@
             <span class="material-icons-sharp active">light_mode</span>
             <span class="material-icons-sharp">dark_mode</span>
         </div>
-        
+
     </header>
     <div class="container">
         <aside>
@@ -50,19 +52,19 @@
                         <img src="./images/profile-1.jpg" alt="">
                     </div>
                     <div class="info">
-                        <p>Hey, <b>Alex</b> </p>
-                        <small class="text-muted">12102030</small>
+                        <p>Hey, <b id="fname"> </b> </p>
+                        <small class="text-muted"></small>
                     </div>
                 </div>
                 <div class="about">
                     <h5>Course</h5>
-                    <p>BTech. Computer Science & Engineering</p>
+                    <p id="course"></p>
                     <h5>DOB</h5>
-                    <p>29-Feb-2020</p>
+                    <p id="dob"></p>
                     <h5>Contact</h5>
-                    <p>1234567890</p>
+                    <p id="contact"></p>
                     <h5>Email</h5>
-                    <p>unknown@gmail.com</p>
+                    <p id="email"></p>
                     <h5>Address</h5>
                     <p>Ghost town Road, New York, America</p>
                 </div>
@@ -77,8 +79,12 @@
                     <h3>Engineering Graphics</h3>
                     <h2>12/14</h2>
                     <div class="progress">
-                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
-                        <div class="number"><p>86%</p></div>
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>86%</p>
+                        </div>
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
@@ -87,8 +93,12 @@
                     <h3>Mathematical Engineering</h3>
                     <h2>27/29</h2>
                     <div class="progress">
-                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
-                        <div class="number"><p>93%</p></div>
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>93%</p>
+                        </div>
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
@@ -97,8 +107,12 @@
                     <h3>Computer Architecture</h3>
                     <h2>27/30</h2>
                     <div class="progress">
-                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
-                        <div class="number"><p>81%</p></div>
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>81%</p>
+                        </div>
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
@@ -107,8 +121,12 @@
                     <h3>Database Management</h3>
                     <h2>24/25</h2>
                     <div class="progress">
-                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
-                        <div class="number"><p>96%</p></div>
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>96%</p>
+                        </div>
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
@@ -117,8 +135,12 @@
                     <h3>Network Security</h3>
                     <h2>25/27</h2>
                     <div class="progress">
-                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
-                        <div class="number"><p>92%</p></div>
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>92%</p>
+                        </div>
                     </div>
                     <small class="text-muted">Last 24 Hours</small>
                 </div>
@@ -192,28 +214,51 @@
         </div>
     </div>
 
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
     <script src="timeTable.js"></script>
     <script src="app-dashboard.js"></script>
 
     <script>
         let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
-        let userInfo = JSON.parse(sessionStorage.getItem("user-info"));
-        let SignoutBtn = document.getElementById('signoutbutton')
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let fname = document.getElementById('fname');
+        let contact = document.getElementById('contact');
+        let dob = document.getElementById('dob');
+        let email = document.getElementById('email');
+        let course = document.getElementById('course');
 
-        let Signout = () =>{
+
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+
+
+        let Signout = () => {
             sessionStorage.removeItem("user-creds");
             sessionStorage.removeItem("user-info");
             window.location.href = 'index.html'
         }
-        
+
         let CheckCred = () => {
-            if(!sessionStorage.getItem("user-creds"))
+            if (!sessionStorage.getItem("user-creds"))
                 window.location.href = 'index.html';
+
+            else {
+                fname.innerText = UserInfo.firstname + " " + UserInfo.lastname;
+                email.innerText = UserCreds.email;
+                contact.innerText = UserInfo.contact;
+                course.innerText = UserInfo.department;
+                dob.innerText = UserInfo.birthdate;
+                
+            }
         }
 
-        window.addEventListener('load',CheckCred);
-        SignoutBtn.addEventListener('click',Signout);
-        
+        window.addEventListener('load', CheckCred);
+        SignoutBtn.addEventListener('click', Signout);
+
     </script>
 </body>
+
 </html>

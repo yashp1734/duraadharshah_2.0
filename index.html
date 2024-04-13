@@ -135,7 +135,10 @@
             if (snapshot.exists) {
               sessionStorage.setItem("user-info", JSON.stringify({
                 firstname: snapshot.val().firstname,
-                lastname: snapshot.val().lastname
+                lastname: snapshot.val().lastname,
+                birthdate: snapshot.val().birthdate,
+                contact: snapshot.val().contact,
+                department: snapshot.val().department,
               }))
               sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
               window.location.href = 'dashboard.html';

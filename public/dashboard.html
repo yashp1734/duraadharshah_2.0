@@ -238,6 +238,10 @@
         let Signout = () => {
             sessionStorage.removeItem("user-creds");
             sessionStorage.removeItem("user-info");
+            document.cookie.split(";").forEach(function(c) {
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+            history.replaceState(null, '', 'index.html');
             window.location.href = 'index.html'
         }
 

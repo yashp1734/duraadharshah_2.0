@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LdqUcApAAAAACXNGAtPC7ouF74327ARc8mYv4CM"></script>
   <title>Sign in & Sign up Form</title>
 </head>
 
@@ -19,7 +19,7 @@
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input id="email" type="email" placeholder="Email"/>
+            <input id="email" type="email" placeholder="Email" />
           </div>
 
           <div class="input-field">
@@ -29,11 +29,10 @@
                 src="img/eye-slash.svg"></span>
           </div>
           <label id="forgotpasslabel" class="forgot-pass-txt" style="cursor: pointer;">Forgot Password</label>
-          
+
 
           <!---------------------------------------Google Captchas-------------------------------------------------------->
-          <!-- <div class="g-recaptcha" data-sitekey="6Lex35EpAAAAAJAoIHCTacAKy2QiMmrbMjZ4ZeEJ"></div> -->
-
+          <!-- <div class="g-recaptcha" data-sitekey="6LfuyZIpAAAAAJ3yAnIW8WE4yVHPztzCg903X57t"></div> -->
           <input type="submit" value="Login" class="btn solid" onclick="handleKey()" />
 
           <p class="social-text">Or Sign in with social platforms</p>
@@ -101,6 +100,7 @@
   <script src="script.js"></script>
   <script type="module">
 
+
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
     import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -129,62 +129,70 @@
     let SignInUser = evt => {
       evt.preventDefault();
 
-      signInWithEmailAndPassword(auth, email.value, password.value)
-        .then((credentials) => {
-          get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
-            if (snapshot.exists) {
-              sessionStorage.setItem("user-info", JSON.stringify({
-                firstname: snapshot.val().firstname,
-                lastname: snapshot.val().lastname,
-                birthdate: snapshot.val().birthdate,
-                contact: snapshot.val().contact,
-                department: snapshot.val().department,
-              }))
-              sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-              window.location.href = 'dashboard.html';
+      const domainRegex = /duraadharshah\.com$/;
 
-            }
+      if (domainRegex.test(email.value)) {
+        // Redirect to adminpanel.html
+        window.location.href = 'adminpanel.html';
+      }
+      else {
+
+        signInWithEmailAndPassword(auth, email.value, password.value)
+          .then((credentials) => {
+            get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
+              if (snapshot.exists) {
+                sessionStorage.setItem("user-info", JSON.stringify({
+                  firstname: snapshot.val().firstname,
+                  lastname: snapshot.val().lastname,
+                  birthdate: snapshot.val().birthdate,
+                  contact: snapshot.val().contact,
+                  department: snapshot.val().department,
+                }))
+                sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+                window.location.href = 'dashboard.html';
+
+              }
+            })
           })
-        })
-        .catch((error) => {
-          alert(error.message);
-          console.log(error.code);
-          console.log(error.message);
-        })
-
-    }
-
-    let ForgotPassword= ()=>{
-          sendPasswordResetEmail(auth, email.value)
-          .then(()=>{
-            alert("A password reset link has been sent to your email");
-          })
-          .catch((error)=>{
+          .catch((error) => {
+            alert(error.message);
             console.log(error.code);
             console.log(error.message);
           })
-        }
+
+      }
+    }
+
+    let ForgotPassword = () => {
+      sendPasswordResetEmail(auth, email.value)
+        .then(() => {
+          alert("A password reset link has been sent to your email");
+        })
+        .catch((error) => {
+          console.log(error.code);
+          console.log(error.message);
+        })
+    }
 
     MainForm.addEventListener('submit', SignInUser);
     Forgotpasslabel.addEventListener('click', ForgotPassword);
-    
-    
 
 
-    document.onkeydown=function(e){
-      if(event.keyCode == 123){
+
+    document.onkeydown = function (e) {
+      if (event.keyCode == 123) {
         return false;
       }
 
-      if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
         return false;
       }
 
-      if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
         return false;
       }
 
-      if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
         return false;
       }
     }

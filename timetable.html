@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="./images/logo.png">
     <link rel="stylesheet" href="dashboard.css">
 </head>
-<body>
+<body oncontextmenu="return false;">
     <header>
         <div class="logo">
             <img src="./images/logo.png" alt="">
@@ -30,7 +30,7 @@
                 <h3>Examination</h3>
             </a>
             <a href="index.html">
-                <span class="material-icons-sharp">logout</span>
+                <span class="material-icons-sharp" id="signoutbutton">logout</span>
                 <h3>Logout</h3>
             </a>
         </div>
@@ -69,4 +69,52 @@
 
 <script src="timeTable.js"></script>
 <script src="app-dashboard.js"></script>
+<script>
+    let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+    let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+
+    let SignoutBtn = document.getElementById('signoutbutton');
+
+
+
+    let Signout = () => {
+        sessionStorage.removeItem("user-creds");
+        sessionStorage.removeItem("user-info");
+
+        document.cookie.split(";").forEach(function (c) {
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+            history.replaceState(null, '', 'index.html');
+
+        window.location.href = 'index.html'
+    }
+
+    let CheckCred = () => {
+        if (!sessionStorage.getItem("user-creds"))
+            window.location.href = 'index.html';
+    }
+
+    window.addEventListener('load', CheckCred);
+    SignoutBtn.addEventListener('click', Signout);
+
+
+
+    document.onkeydown=function(e){
+      if(event.keyCode == 123){
+        return false;
+      }
+
+      if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+        return false;
+      }
+
+      if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+        return false;
+      }
+
+      if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+        return false;
+      }
+    }
+</script>
 </html>

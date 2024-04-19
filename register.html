@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
   <form id="MainForm">
     <input id="email" type="email" placeholder="Email" required />
 
@@ -70,7 +70,7 @@
       <option value="8">8</option>
     </select>
 
-    
+
 
     <input type="submit" value="Register" class="btn solid" />
   </form>
@@ -116,28 +116,54 @@
     let RegisterUser = evt => {
       evt.preventDefault();
 
+      // Regular expression to match "duraadharshah.com" domain
+      const validDomainRegex = /@duraadharshah\.com$/i; // Case-insensitive
+
+      if (validDomainRegex.test(email.value)) {
+        // Invalid domain, show an error message
+        alert('Error: duraadharshah.com is not a valid domain trying entering with valid domain');
+        return; // Prevent form submission
+      }
+
+      // If the domain is not "duraadharshah.com", proceed with user registration
       createUserWithEmailAndPassword(auth, email.value, password.value)
         .then((credentials) => {
-          set(ref(db,'UserAuthList/' + credentials.user.uid),{
+          set(ref(db, 'UserAuthList/' + credentials.user.uid), {
             initial: initial.value,
             firstname: fname.value,
             middlename: mname.value,
             lastname: lname.value,
-            contact : contact.value,
-            birthdate : birth.value,
-            bloodgroup : blood.value,
+            contact: contact.value,
+            birthdate: birth.value,
+            bloodgroup: blood.value,
             school: school.value,
-            department:dept.value,
-            branch:branch.value,
-            semester:sem.value,
-          })
+            department: dept.value,
+            branch: branch.value,
+            semester: sem.value,
+          });
+
+          email.value = '';
+          password.value = '';
+          initial.value = '';
+          fname.value = '';
+          mname.value = '';
+          lname.value = '';
+          contact.value = '';
+          birth.value = '';
+          blood.value = '';
+          school.value = '';
+          dept.value = '';
+          branch.value = '';
+          sem.value = '';
+
+          alert('Registration successful! You can now log in.');
         })
         .catch((error) => {
           alert(error.message);
           console.log(error.code);
           console.log(error.message);
-        })
-    }
+        });
+    };
 
     MainForm.addEventListener('submit', RegisterUser);
 

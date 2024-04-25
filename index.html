@@ -98,7 +98,202 @@
   </div>
   <!-- <script src="script1.js"></script> -->
   <script src="script.js"></script>
-  
+  <script type="module">
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
+      authDomain: "duraadharshah-ca0ca.firebaseapp.com",
+      databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
+      projectId: "duraadharshah-ca0ca",
+      storageBucket: "duraadharshah-ca0ca.appspot.com",
+      messagingSenderId: "625665554854",
+      appId: "1:625665554854:web:7dc2e4b4c0469413603767",
+      measurementId: "G-W9RFMNZKC9"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const auth = getAuth(app);
+    const dbref = ref(db);
+
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let MainForm = document.getElementById('MainForm');
+    let Forgotpasslabel = document.getElementById('forgotpasslabel');
+
+    let SignInUser = evt => {
+      evt.preventDefault();
+
+      const domainRegex = /duraadharshah\.com$/;
+
+      if (domainRegex.test(email.value)) {
+        // Redirect to adminpanel.html
+        window.location.href = 'adminpanel.html';
+      }
+      else {
+        signInWithEmailAndPassword(auth, email.value, password.value)
+          .then((credentials) => {
+            get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
+
+              var timetable = snapshot.val().department + "-" + snapshot.val().semester;
+
+              if (snapshot.exists) {
+                // Store user info in sessionStorage
+                sessionStorage.setItem("user-info", JSON.stringify({
+                  firstname: snapshot.val().firstname,
+                  lastname: snapshot.val().lastname,
+                  birthdate: snapshot.val().birthdate,
+                  contact: snapshot.val().contact,
+                  department: snapshot.val().department,
+                  ttname: timetable, // Store timetable name separately
+                }));
+
+                // Fetch timetable data
+                get(child(dbref, 'TimeTable/' + timetable)).then((tsnapshot) => {
+                  var tableData = {};
+                  if (tsnapshot.exists()) {
+                    // If timetable exists, populate table data
+                    tableData = {
+                      m1: tsnapshot.val().m1,
+                      m2: tsnapshot.val().m2,
+                      m3: tsnapshot.val().m3,
+                      m4: tsnapshot.val().m4,
+                      m5: tsnapshot.val().m5,
+                      m6: tsnapshot.val().m6,
+                      tu1: tsnapshot.val().tu1,
+                      tu2: tsnapshot.val().tu2,
+                      tu3: tsnapshot.val().tu3,
+                      tu4: tsnapshot.val().tu4,
+                      tu5: tsnapshot.val().tu5,
+                      tu6: tsnapshot.val().tu6,
+                      w1: tsnapshot.val().w1,
+                      w2: tsnapshot.val().w2,
+                      w3: tsnapshot.val().w3,
+                      w4: tsnapshot.val().w4,
+                      w5: tsnapshot.val().w5,
+                      w6: tsnapshot.val().w6,
+                      th1: tsnapshot.val().th1,
+                      th2: tsnapshot.val().th2,
+                      th3: tsnapshot.val().th3,
+                      th4: tsnapshot.val().th4,
+                      th5: tsnapshot.val().th5,
+                      th6: tsnapshot.val().th6,
+                      f1: tsnapshot.val().f1,
+                      f2: tsnapshot.val().f2,
+                      f3: tsnapshot.val().f3,
+                      f4: tsnapshot.val().f4,
+                      f5: tsnapshot.val().f5,
+                      f6: tsnapshot.val().f6,
+                      s1: tsnapshot.val().s1,
+                      s2: tsnapshot.val().s2,
+                      s3: tsnapshot.val().s3,
+                      s4: tsnapshot.val().s4,
+                      s5: tsnapshot.val().s5
+                      // Add more timetable keys as needed
+                    };
+                  } else {
+                    // If timetable doesn't exist, set m1 and m2 to null
+                    tableData = {
+                      m1: null,
+                      m2: null,
+                      m3: null,
+                      m4: null,
+                      m5: null,
+                      m6: null,
+                      tu1: null,
+                      tu2: null,
+                      tu3: null,
+                      tu4: null,
+                      tu5: null,
+                      tu6: null,
+                      w1: null,
+                      w2: null,
+                      w3: null,
+                      w4: null,
+                      w5: null,
+                      w6: null,
+                      th1: null,
+                      th2: null,
+                      th3: null,
+                      th4: null,
+                      th5: null,
+                      th6: null,
+                      f1: null,
+                      f2: null,
+                      f3: null,
+                      f4: null,
+                      f5: null,
+                      f6: null,
+                      s1: null,
+                      s2: null,
+                      s3: null,
+                      s4: null,
+                      s5: null
+                      // Add more timetable keys as needed
+                    };
+                  }
+
+                  // Store table data in sessionStorage
+                  sessionStorage.setItem("table-data", JSON.stringify(tableData));
+                  sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+
+                  // Redirect to dashboard
+                  window.location.href = 'dashboard.html';
+                }).catch((error) => {
+                  console.error("Error fetching timetable data:", error);
+                });
+              }
+            })
+          })
+          .catch((error) => {
+            alert(error.message);
+            console.log(error.code);
+            console.log(error.message);
+          });
+
+
+      }
+    }
+
+    let ForgotPassword = () => {
+      sendPasswordResetEmail(auth, email.value)
+        .then(() => {
+          alert("A password reset link has been sent to your email");
+        })
+        .catch((error) => {
+          console.log(error.code);
+          console.log(error.message);
+        })
+    }
+
+    MainForm.addEventListener('submit', SignInUser);
+    Forgotpasslabel.addEventListener('click', ForgotPassword);
+
+
+
+    document.onkeydown = function (e) {
+      if (event.keyCode == 123) {
+        return false;
+      }
+
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+        return false;
+      }
+
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+        return false;
+      }
+
+      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        return false;
+      }
+    }
+  </script>
 </body>
 
 </html>

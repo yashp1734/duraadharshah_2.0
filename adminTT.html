@@ -252,50 +252,7 @@
         let MainForm = document.getElementById('MainForm');
 
 
-        function AddData() {
-            // Check if all required fields are not empty
-            if (
-                m1.value.trim() === "" ||
-                m2.value.trim() === "" ||
-                m3.value.trim() === "" ||
-                m4.value.trim() === "" ||
-                m5.value.trim() === "" ||
-                m6.value.trim() === "" ||
-                tu1.value.trim() === "" ||
-                tu2.value.trim() === "" ||
-                tu3.value.trim() === "" ||
-                tu4.value.trim() === "" ||
-                tu5.value.trim() === "" ||
-                tu6.value.trim() === "" ||
-                w1.value.trim() === "" ||
-                w2.value.trim() === "" ||
-                w3.value.trim() === "" ||
-                w4.value.trim() === "" ||
-                w5.value.trim() === "" ||
-                w6.value.trim() === "" ||
-                th1.value.trim() === "" ||
-                th2.value.trim() === "" ||
-                th3.value.trim() === "" ||
-                th4.value.trim() === "" ||
-                th5.value.trim() === "" ||
-                th6.value.trim() === "" ||
-                f1.value.trim() === "" ||
-                f2.value.trim() === "" ||
-                f3.value.trim() === "" ||
-                f4.value.trim() === "" ||
-                f5.value.trim() === "" ||
-                f6.value.trim() === "" ||
-                s1.value.trim() === "" ||
-                s2.value.trim() === "" ||
-                s3.value.trim() === "" ||
-                s4.value.trim() === "" ||
-                s5.value.trim() === ""
-            ) {
-                alert("All fields are required!");
-                return; // Exit the function if any required field is empty
-            }
-
-            // Proceed with adding data to the database
+        function AddData(){
             set(ref(db, 'TimeTable/' + program.value + '-' + semester.value), {
                 m1: m1.value,
                 m2: m2.value,
@@ -332,13 +289,14 @@
                 s3: s3.value,
                 s4: s4.value,
                 s5: s5.value,
-                s6: s6.value,
+
             }).then(() => {
                 alert("Time table inserted successfully");
             }).catch((error) => {
                 alert("Unsuccessful");
                 console.log(error);
             });
+
         }
 
 

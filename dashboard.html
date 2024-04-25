@@ -223,6 +223,7 @@
     <script>
         let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
         let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let TableInfo = JSON.parse(sessionStorage.getItem("table-data"));
         let fname = document.getElementById('fname');
         let contact = document.getElementById('contact');
         let dob = document.getElementById('dob');
@@ -237,6 +238,7 @@
 
         let Signout = () => {
             sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("table-data");
             sessionStorage.removeItem("user-info");
 
             document.cookie.split(";").forEach(function (c) {

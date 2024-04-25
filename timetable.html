@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +10,35 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="shortcut icon" href="./images/logo.png">
     <link rel="stylesheet" href="dashboard.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .recess {
+            border-top: 2px solid black;
+        }
+
+        .semester {
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body oncontextmenu="return false;">
     <header>
-        <div class="logo">
-            <img src="./images/logo.png" alt="">
-            <h2>U<span class="danger">M</span>S</h2>
+        <div class="logo" title="University Management System">
+            <img src="./images/logo1.png" alt="" width="500" height="500">
+            <h2 style="padding-top: 5px;">ITMBU</h2>
         </div>
         <div class="navbar">
             <a href="dashboard.html">
@@ -24,15 +48,15 @@
             <a href="timetable.html" class="active" onclick="timeTableAll()">
                 <span class="material-icons-sharp">today</span>
                 <h3>Time Table</h3>
-            </a> 
+            </a>
             <a href="exam.html">
                 <span class="material-icons-sharp">grid_view</span>
                 <h3>Examination</h3>
             </a>
-            <a href="index.html">
-                <span class="material-icons-sharp" id="signoutbutton">logout</span>
+            
+            <button class="material-icons-sharp" type="button" id="signoutbutton">logout</button>
                 <h3>Logout</h3>
-            </a>
+            
         </div>
         <div id="profile-btn" style="display: none;">
             <span class="material-icons-sharp">person</span>
@@ -41,37 +65,131 @@
             <span class="material-icons-sharp active">light_mode</span>
             <span class="material-icons-sharp">dark_mode</span>
         </div>
-        
+
     </header>
 
     <main style="margin: 0;">
         <div class="timetable active" id="timetable">
             <div>
-                <span id="prevDay">&lt;</span>
-                <h2>Today's Timetable</h2>
-                <span id="nextDay">&gt;</span>
+                <span></span>
+                <h2 id="tablename"></h2>
+                <span></span>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th>Time</th>
-                        <th>Room No.</th>
-                        <th>Subject</th>
-                        <th></th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <tr>
+                        <td id="m1"></td>
+                        <td id="tu1"></td>
+                        <td id="w1"></td>
+                        <td id="th1"></td>
+                        <td id="f1"></td>
+                        <td id="s1"></td>
+                    </tr>
+                    <tr>
+                        <td id="m2"></td>
+                        <td id="tu2"></td>
+                        <td id="w2"></td>
+                        <td id="th2"></td>
+                        <td id="f2"></td>
+                        <td id="s2"></td>
+                    </tr>
+                    <tr>
+                        <td id="m3"></td>
+                        <td id="tu3"></td>
+                        <td id="w3"></td>
+                        <td id="th3"></td>
+                        <td id="f3"></td>
+                        <td id="s3"></td>
+                    </tr>
+                    <tr class="recess">
+                        <td colspan="6">Recess</td>
+                    </tr>
+                    <tr>
+                        <td id="m4"></td>
+                        <td id="tu4"></td>
+                        <td id="w4"></td>
+                        <td id="th4"></td>
+                        <td id="f4"></td>
+                        <td id="s4"></td>
+                    </tr>
+                    <tr>
+                        <td id="m5"></td>
+                        <td id="tu5"></td>
+                        <td id="w5"></td>
+                        <td id="th5"></td>
+                        <td id="f5"></td>
+                        <td id="s5"></td>
+                    </tr>
+                    <tr>
+                        <td id="m6"></td>
+                        <td id="tu6"></td>
+                        <td id="w6"></td>
+                        <td id="th6"></td>
+                        <td id="f6"></td>
+                        <td id="s6"></td>
+                    </tr>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </main>
 
 </body>
 
-<script src="timeTable.js"></script>
+<!-- <script src="timeTable.js"></script> -->
 <script src="app-dashboard.js"></script>
 <script>
     let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
     let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+    let TableInfo = JSON.parse(sessionStorage.getItem("table-data"));
+
+    let m1 = document.getElementById('m1');
+    let m2 = document.getElementById('m2');
+    let m3 = document.getElementById('m3');
+    let m4 = document.getElementById('m4');
+    let m5 = document.getElementById('m5');
+    let m6 = document.getElementById('m6');
+    let tu1 = document.getElementById('tu1');
+    let tu2 = document.getElementById('tu2');
+    let tu3 = document.getElementById('tu3');
+    let tu4 = document.getElementById('tu4');
+    let tu5 = document.getElementById('tu5');
+    let tu6 = document.getElementById('tu6');
+    let w1 = document.getElementById('w1');
+    let w2 = document.getElementById('w2');
+    let w3 = document.getElementById('w3');
+    let w4 = document.getElementById('w4');
+    let w5 = document.getElementById('w5');
+    let w6 = document.getElementById('w6');
+    let th1 = document.getElementById('th1');
+    let th2 = document.getElementById('th2');
+    let th3 = document.getElementById('th3');
+    let th4 = document.getElementById('th4');
+    let th5 = document.getElementById('th5');
+    let th6 = document.getElementById('th6');
+    let f1 = document.getElementById('f1');
+    let f2 = document.getElementById('f2');
+    let f3 = document.getElementById('f3');
+    let f4 = document.getElementById('f4');
+    let f5 = document.getElementById('f5');
+    let f6 = document.getElementById('f6');
+    let s1 = document.getElementById('s1');
+    let s2 = document.getElementById('s2');
+    let s3 = document.getElementById('s3');
+    let s4 = document.getElementById('s4');
+    let s5 = document.getElementById('s5');
+    let tablename = document.getElementById('tablename');
+
 
     let SignoutBtn = document.getElementById('signoutbutton');
 
@@ -79,12 +197,13 @@
 
     let Signout = () => {
         sessionStorage.removeItem("user-creds");
+        sessionStorage.removeItem("table-data");
         sessionStorage.removeItem("user-info");
 
         document.cookie.split(";").forEach(function (c) {
-                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-            });
-            history.replaceState(null, '', 'index.html');
+            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+        history.replaceState(null, '', 'index.html');
 
         window.location.href = 'index.html'
     }
@@ -92,29 +211,71 @@
     let CheckCred = () => {
         if (!sessionStorage.getItem("user-creds"))
             window.location.href = 'index.html';
+
+        else {
+            m1.innerText = TableInfo.m1;
+            m2.innerText = TableInfo.m2;
+            m3.innerText = TableInfo.m3;
+            m4.innerText = TableInfo.m4;
+            m5.innerText = TableInfo.m5;
+            m6.innerText = TableInfo.m6;
+            tu1.innerText = TableInfo.tu1;
+            tu2.innerText = TableInfo.tu2;
+            tu3.innerText = TableInfo.tu3;
+            tu4.innerText = TableInfo.tu4;
+            tu5.innerText = TableInfo.tu5;
+            tu6.innerText = TableInfo.tu6;
+            w1.innerText = TableInfo.w1;
+            w2.innerText = TableInfo.w2;
+            w3.innerText = TableInfo.w3;
+            w4.innerText = TableInfo.w4;
+            w5.innerText = TableInfo.w5;
+            w6.innerText = TableInfo.w6;
+            th1.innerText = TableInfo.th1;
+            th2.innerText = TableInfo.th2;
+            th3.innerText = TableInfo.th3;
+            th4.innerText = TableInfo.th4;
+            th5.innerText = TableInfo.th5;
+            th6.innerText = TableInfo.th6;
+            f1.innerText = TableInfo.f1;
+            f2.innerText = TableInfo.f2;
+            f3.innerText = TableInfo.f3;
+            f4.innerText = TableInfo.f4;
+            f5.innerText = TableInfo.f5;
+            f6.innerText = TableInfo.f6;
+            s1.innerText = TableInfo.s1;
+            s2.innerText = TableInfo.s2;
+            s3.innerText = TableInfo.s3;
+            s4.innerText = TableInfo.s4;
+            s5.innerText = TableInfo.s5;
+
+            tablename.innerText = UserInfo.ttname + " "+"Time Table";  
+
+        }
     }
 
     window.addEventListener('load', CheckCred);
     SignoutBtn.addEventListener('click', Signout);
 
 
+    document.onkeydown = function (e) {
+        if (event.keyCode == 123) {
+            return false;
+        }
 
-    document.onkeydown=function(e){
-      if(event.keyCode == 123){
-        return false;
-      }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            return false;
+        }
 
-      if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
-        return false;
-      }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            return false;
+        }
 
-      if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
-        return false;
-      }
-
-      if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
-        return false;
-      }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
+        }
     }
+
 </script>
+
 </html>

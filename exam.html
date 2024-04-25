@@ -26,9 +26,9 @@
 </head>
 <body oncontextmenu="return false;">
     <header>
-        <div class="logo">
-            <img src="./images/logo.png" alt="">
-            <h2>U<span class="danger">M</span>S</h2>
+        <div class="logo" title="University Management System">
+            <img src="./images/logo1.png" alt="" width="500" height="500">
+            <h2 style="padding-top: 5px;">ITMBU</h2>
         </div>
         <div class="navbar">
             <a href="dashboard.html">
@@ -43,10 +43,8 @@
                 <span class="material-icons-sharp">grid_view</span>
                 <h3>Examination</h3>
             </a>
-            <a href="index.html">
-                <span class="material-icons-sharp" id="signoutbutton">logout</span>
+            <button class="material-icons-sharp" type="button" id="signoutbutton">logout</button>
                 <h3>Logout</h3>
-            </a>
         </div>
         <div id="profile-btn" style="display: none;">
             <span class="material-icons-sharp">person</span>
@@ -120,6 +118,8 @@
     let Signout = () => {
         sessionStorage.removeItem("user-creds");
         sessionStorage.removeItem("user-info");
+        sessionStorage.removeItem("table-data");
+
 
         document.cookie.split(";").forEach(function (c) {
                 document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");

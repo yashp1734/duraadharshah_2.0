@@ -7,34 +7,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LdqUcApAAAAACXNGAtPC7ouF74327ARc8mYv4CM"></script>
   <title>Sign in & Sign up Form</title>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
   <div class="container">
     <div class="forms-container">
       <div class="signin">
-        <form action="dashboard.html" class="sign-in-form">
+        <form class="sign-in-form" id="MainForm">
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" required/>
+            <input id="email" type="email" placeholder="Email" />
           </div>
 
           <div class="input-field">
-            <i class="fas fa-lock"></i> 
-            <input id="password" type="password" placeholder="Password" required/>
-            <span class="toggle-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img src="img/eye-slash.svg"></span>
+            <i class="fas fa-lock"></i>
+            <input id="password" type="password" placeholder="Password" />
+            <span class="toggle-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img
+                src="img/eye-slash.svg"></span>
           </div>
-          
-          <a href="truefactor.html" class="forgot-pass-txt">Forgot Password?</a>
+          <label id="forgotpasslabel" class="forgot-pass-txt" style="cursor: pointer;">Forgot Password</label>
+
 
           <!---------------------------------------Google Captchas-------------------------------------------------------->
-          <div class="g-recaptcha" data-sitekey="6Lex35EpAAAAAJAoIHCTacAKy2QiMmrbMjZ4ZeEJ"></div>
-          
-          <input type="submit" value="Login" class="btn solid" onclick="dashboard(event)"/>
-          
+          <!-- <div class="g-recaptcha" data-sitekey="6LfuyZIpAAAAAJ3yAnIW8WE4yVHPztzCg903X57t"></div> -->
+          <input type="submit" value="Login" class="btn solid" onclick="handleKey()" />
+
           <p class="social-text">Or Sign in with social platforms</p>
           <div class="social-media">
             <a href="#" class="social-icon">
@@ -295,7 +295,6 @@
     }
   </script>
 
-  
 </body>
 
 </html>

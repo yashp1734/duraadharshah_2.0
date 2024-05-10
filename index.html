@@ -2,299 +2,310 @@
 <html lang="en">
 
 <head>
-  <link rel="shortcut icon" href="./img/Duraadharshah-circle.png">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.google.com/recaptcha/api.js?render=6LdqUcApAAAAACXNGAtPC7ouF74327ARc8mYv4CM"></script>
-  <title>Sign in & Sign up Form</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duraadharshah</title>
+    <link rel="stylesheet" href="./CSS/adminStyle.css">
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdqUcApAAAAACXNGAtPC7ouF74327ARc8mYv4CM"></script>
 </head>
 
 <body oncontextmenu="return false;">
-  <div class="container">
-    <div class="forms-container">
-      <div class="signin">
-        <form class="sign-in-form" id="MainForm">
-          <h2 class="title">Sign in</h2>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input id="email" type="email" placeholder="Email" />
-          </div>
-
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input id="password" type="password" placeholder="Password" />
-            <span class="toggle-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img
-                src="img/eye-slash.svg"></span>
-          </div>
-          <label id="forgotpasslabel" class="forgot-pass-txt" style="cursor: pointer;">Forgot Password</label>
-
-
-          <!---------------------------------------Google Captchas-------------------------------------------------------->
-          <!-- <div class="g-recaptcha" data-sitekey="6LfuyZIpAAAAAJ3yAnIW8WE4yVHPztzCg903X57t"></div> -->
-          <input type="submit" value="Login" class="btn solid" onclick="handleKey()" />
-
-          <p class="social-text">Or Sign in with social platforms</p>
-          <div class="social-media">
-            <a href="#" class="social-icon">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-google"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-          </div>
-        </form>
-
-      </div>
-    </div>
-
-    <div class="panels-container">
-      <div class="panel left-panel">
-        <div class="content">
-          <h3>New here ?</h3>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-            ex ratione. Aliquid!
-          </p>
+    <div class="container-login-signup">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form id="MainForm">
+                <div class="input-box">
+                    <input type="email" id="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box" >
+                    <input id="password" type="password" id="password" required>
+                    <label>Password</label>
+                    <span class="toggle-icon input-icon" id="eye-icon" onclick="togglepasswordvisibility()"><img
+                        src="img/eye-slash.svg"></span>
+                </div>
+                <div class="forgot-pass">
+                    <label id="forgotpasslabel" style="cursor: pointer;">Forgot Password</label>
+                </div>
+                <button type="submit" class="btn" id="submitBtn" onclick="handleKey()">Login</button>
+            </form>
         </div>
-        <img src="img/log.svg" class="image" alt="" />
-      </div>
+        <span class="animationSpan" style="--i:0;"></span>
+        <span class="animationSpan" style="--i:1;"></span>
+        <span class="animationSpan" style="--i:2;"></span>
+        <span class="animationSpan" style="--i:3;"></span>
+        <span class="animationSpan" style="--i:4;"></span>
+        <span class="animationSpan" style="--i:5;"></span>
+        <span class="animationSpan" style="--i:6;"></span>
+        <span class="animationSpan" style="--i:7;"></span>
+        <span class="animationSpan" style="--i:8;"></span>
+        <span class="animationSpan" style="--i:9;"></span>
+        <span class="animationSpan" style="--i:10;"></span>
+        <span class="animationSpan" style="--i:11;"></span>
+        <span class="animationSpan" style="--i:12;"></span>
+        <span class="animationSpan" style="--i:13;"></span>
+        <span class="animationSpan" style="--i:14;"></span>
+        <span class="animationSpan" style="--i:15;"></span>
+        <span class="animationSpan" style="--i:16;"></span>
+        <span class="animationSpan" style="--i:17;"></span>
+        <span class="animationSpan" style="--i:18;"></span>
+        <span class="animationSpan" style="--i:19;"></span>
+        <span class="animationSpan" style="--i:20;"></span>
+        <span class="animationSpan" style="--i:21;"></span>
+        <span class="animationSpan" style="--i:22;"></span>
+        <span class="animationSpan" style="--i:23;"></span>
+        <span class="animationSpan" style="--i:24;"></span>
+        <span class="animationSpan" style="--i:25;"></span>
+        <span class="animationSpan" style="--i:26;"></span>
+        <span class="animationSpan" style="--i:27;"></span>
+        <span class="animationSpan" style="--i:28;"></span>
+        <span class="animationSpan" style="--i:29;"></span>
+        <span class="animationSpan" style="--i:30;"></span>
+        <span class="animationSpan" style="--i:31;"></span>
+        <span class="animationSpan" style="--i:32;"></span>
+        <span class="animationSpan" style="--i:33;"></span>
+        <span class="animationSpan" style="--i:34;"></span>
+        <span class="animationSpan" style="--i:35;"></span>
+        <span class="animationSpan" style="--i:36;"></span>
+        <span class="animationSpan" style="--i:37;"></span>
+        <span class="animationSpan" style="--i:38;"></span>
+        <span class="animationSpan" style="--i:39;"></span>
+        <span class="animationSpan" style="--i:40;"></span>
+        <span class="animationSpan" style="--i:41;"></span>
+        <span class="animationSpan" style="--i:42;"></span>
+        <span class="animationSpan" style="--i:43;"></span>
+        <span class="animationSpan" style="--i:44;"></span>
+        <span class="animationSpan" style="--i:45;"></span>
+        <span class="animationSpan" style="--i:46;"></span>
+        <span class="animationSpan" style="--i:47;"></span>
+        <span class="animationSpan" style="--i:48;"></span>
+        <span class="animationSpan" style="--i:49;"></span>
     </div>
-  </div>
 
-
-  <!-- Keyboard  -->
-  <!-- Keyboard  -->
-  <div class="keyboard" id="virtual-keyboard">
-    <div class="row">
-      <button class="btn-keyboard" onclick="handleKey('1')">1</button>
-      <button class="btn-keyboard" onclick="handleKey('2')">2</button>
-      <button class="btn-keyboard" onclick="handleKey('3')">3</button>
-      <button class="btn-keyboard" onclick="handleKey('4')">4</button>
-      <button class="btn-keyboard" onclick="handleKey('5')">5</button>
-      <button class="btn-keyboard" onclick="handleKey('6')">6</button>
-      <br>
-      <button class="btn-keyboard" onclick="handleKey('7')">7</button>
-      <button class="btn-keyboard" onclick="handleKey('8')">8</button>
-      <button class="btn-keyboard" onclick="handleKey('9')">9</button>
-      <button class="btn-keyboard" onclick="handleKey('0')">0</button>
-      <button class="btn-keyboard" onclick="handleKey('@')">@</button>
-      <button class="btn-keyboard" onclick="handleKey('#')">#</button>
-      <br>
-      <button class="btn-keyboard" onclick="handleKey('_')">_</button>
-      <button class="btn-keyboard" onclick="handleKey('$')">$</button>
-      <button class="btn-keyboard" onclick="handleKey('%')">%</button>
-      <button class="btn-keyboard" onclick="handleKey('!')">!</button>
-      <button class="delete btn-keyboard" onclick="deleteChar()">Delete</button>
+    <div class="kbody">
+        <div class="keyboard" id="virtual-keyboard">
+            <button class="button" onclick="handleKey('7')">7</button>
+            <button class="button" onclick="handleKey('8')">8</button>
+            <button class="button" onclick="handleKey('9')">9</button>
+            <button class="button" onclick="handleKey('4')">4</button>
+            <button class="button" onclick="handleKey('5')">5</button>
+            <button class="button" onclick="handleKey('6')">6</button>
+            <button class="button" onclick="handleKey('1')">1</button>
+            <button class="button" onclick="handleKey('2')">2</button>
+            <button class="button" onclick="handleKey('3')">3</button>
+            <button class="button" onclick="handleKey('0')">0</button>
+            <button class="button delete" style="background-color: rgb(255, 0, 0)" onclick="deleteChar()">CLEAR</button>
+            <button class="button enter" style="background-color: rgb(44, 250, 2);" onclick="entervar('')">ENTER</button>
+        </div>
     </div>
-    <button class="enter btn-keyboard" onclick="entervar('')">Enter</button>
-  </div>
-  <!-- <script src="script1.js"></script> -->
-  <script src="script.js"></script>
-  <script type="module">
+
+    <!-- <script src="script.js"></script> -->
+    <script src="keyboard.js"></script>
+    <script type="module">
 
 
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-    import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    const firebaseConfig = {
-      apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
-      authDomain: "duraadharshah-ca0ca.firebaseapp.com",
-      databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
-      projectId: "duraadharshah-ca0ca",
-      storageBucket: "duraadharshah-ca0ca.appspot.com",
-      messagingSenderId: "625665554854",
-      appId: "1:625665554854:web:7dc2e4b4c0469413603767",
-      measurementId: "G-W9RFMNZKC9"
-    };
-
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase();
-    const auth = getAuth(app);
-    const dbref = ref(db);
-
-    let email = document.getElementById('email');
-    let password = document.getElementById('password');
-    let MainForm = document.getElementById('MainForm');
-    let Forgotpasslabel = document.getElementById('forgotpasslabel');
-
-    let SignInUser = evt => {
-      evt.preventDefault();
-
-      const domainRegex = /duraadharshah\.com$/;
-
-      if (domainRegex.test(email.value)) {
-        // Redirect to adminpanel.html
-        window.location.href = 'adminpanel.html';
-      }
-      else {
-        signInWithEmailAndPassword(auth, email.value, password.value)
-          .then((credentials) => {
-            get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
-
-              var timetable = snapshot.val().department + "-" + snapshot.val().semester;
-
-              if (snapshot.exists) {
-                // Store user info in sessionStorage
-                sessionStorage.setItem("user-info", JSON.stringify({
-                  firstname: snapshot.val().firstname,
-                  lastname: snapshot.val().lastname,
-                  birthdate: snapshot.val().birthdate,
-                  contact: snapshot.val().contact,
-                  department: snapshot.val().department,
-                  ttname: timetable, // Store timetable name separately
-                }));
-
-                // Fetch timetable data
-                get(child(dbref, 'TimeTable/' + timetable)).then((tsnapshot) => {
-                  var tableData = {};
-                  if (tsnapshot.exists()) {
-                    // If timetable exists, populate table data
-                    tableData = {
-                      m1: tsnapshot.val().m1,
-                      m2: tsnapshot.val().m2,
-                      m3: tsnapshot.val().m3,
-                      m4: tsnapshot.val().m4,
-                      m5: tsnapshot.val().m5,
-                      m6: tsnapshot.val().m6,
-                      tu1: tsnapshot.val().tu1,
-                      tu2: tsnapshot.val().tu2,
-                      tu3: tsnapshot.val().tu3,
-                      tu4: tsnapshot.val().tu4,
-                      tu5: tsnapshot.val().tu5,
-                      tu6: tsnapshot.val().tu6,
-                      w1: tsnapshot.val().w1,
-                      w2: tsnapshot.val().w2,
-                      w3: tsnapshot.val().w3,
-                      w4: tsnapshot.val().w4,
-                      w5: tsnapshot.val().w5,
-                      w6: tsnapshot.val().w6,
-                      th1: tsnapshot.val().th1,
-                      th2: tsnapshot.val().th2,
-                      th3: tsnapshot.val().th3,
-                      th4: tsnapshot.val().th4,
-                      th5: tsnapshot.val().th5,
-                      th6: tsnapshot.val().th6,
-                      f1: tsnapshot.val().f1,
-                      f2: tsnapshot.val().f2,
-                      f3: tsnapshot.val().f3,
-                      f4: tsnapshot.val().f4,
-                      f5: tsnapshot.val().f5,
-                      f6: tsnapshot.val().f6,
-                      s1: tsnapshot.val().s1,
-                      s2: tsnapshot.val().s2,
-                      s3: tsnapshot.val().s3,
-                      s4: tsnapshot.val().s4,
-                      s5: tsnapshot.val().s5
-                      // Add more timetable keys as needed
-                    };
-                  } else {
-                    // If timetable doesn't exist, set m1 and m2 to null
-                    tableData = {
-                      m1: null,
-                      m2: null,
-                      m3: null,
-                      m4: null,
-                      m5: null,
-                      m6: null,
-                      tu1: null,
-                      tu2: null,
-                      tu3: null,
-                      tu4: null,
-                      tu5: null,
-                      tu6: null,
-                      w1: null,
-                      w2: null,
-                      w3: null,
-                      w4: null,
-                      w5: null,
-                      w6: null,
-                      th1: null,
-                      th2: null,
-                      th3: null,
-                      th4: null,
-                      th5: null,
-                      th6: null,
-                      f1: null,
-                      f2: null,
-                      f3: null,
-                      f4: null,
-                      f5: null,
-                      f6: null,
-                      s1: null,
-                      s2: null,
-                      s3: null,
-                      s4: null,
-                      s5: null
-                      // Add more timetable keys as needed
-                    };
-                  }
-
-                  // Store table data in sessionStorage
-                  sessionStorage.setItem("table-data", JSON.stringify(tableData));
-                  sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-
-                  // Redirect to dashboard
-                  window.location.href = 'dashboard.html';
-                }).catch((error) => {
-                  console.error("Error fetching timetable data:", error);
-                });
-              }
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        const firebaseConfig = {
+          apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
+          authDomain: "duraadharshah-ca0ca.firebaseapp.com",
+          databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
+          projectId: "duraadharshah-ca0ca",
+          storageBucket: "duraadharshah-ca0ca.appspot.com",
+          messagingSenderId: "625665554854",
+          appId: "1:625665554854:web:7dc2e4b4c0469413603767",
+          measurementId: "G-W9RFMNZKC9"
+        };
+    
+    
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth(app);
+        const dbref = ref(db);
+    
+        let email = document.getElementById('email');
+        let password = document.getElementById('password');
+        let MainForm = document.getElementById('MainForm');
+        let Forgotpasslabel = document.getElementById('forgotpasslabel');
+    
+        let SignInUser = evt => {
+          evt.preventDefault();
+    
+          const domainRegex = /duraadharshah\.com$/;
+    
+          if (domainRegex.test(email.value)) {
+            // Redirect to adminpanel.html
+            signInWithEmailAndPassword(auth,email.value,password.value).then((credentials)=>{
+              sessionStorage.setItem("user-creds", JSON.stringify(credentials.user)); 
+              window.location.href = 'adminpanel.html';
             })
-          })
-          .catch((error) => {
-            alert(error.message);
-            console.log(error.code);
-            console.log(error.message);
-          });
-
-
-      }
-    }
-
-    let ForgotPassword = () => {
-      sendPasswordResetEmail(auth, email.value)
-        .then(() => {
-          alert("A password reset link has been sent to your email");
-        })
-        .catch((error) => {
-          console.log(error.code);
-          console.log(error.message);
-        })
-    }
-
-    MainForm.addEventListener('submit', SignInUser);
-    Forgotpasslabel.addEventListener('click', ForgotPassword);
-
-
-
-    document.onkeydown = function (e) {
-      if (event.keyCode == 123) {
-        return false;
-      }
-
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-      }
-
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-      }
-
-      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-      }
-    }
-  </script>
-
+            .catch((error) => {
+                alert(error.message);
+                console.log(error.code);
+                console.log(error.message);
+              });
+           }
+          else {
+            signInWithEmailAndPassword(auth, email.value, password.value)
+              .then((credentials) => {
+                get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
+    
+                  var timetable = snapshot.val().department + "-" + snapshot.val().semester;
+    
+                  if (snapshot.exists) {
+                    // Store user info in sessionStorage
+                    sessionStorage.setItem("user-info", JSON.stringify({
+                      firstname: snapshot.val().firstname,
+                      lastname: snapshot.val().lastname,
+                      birthdate: snapshot.val().birthdate,
+                      contact: snapshot.val().contact,
+                      department: snapshot.val().department,
+                      ttname: timetable, // Store timetable name separately
+                    }));
+    
+                    // Fetch timetable data
+                    get(child(dbref, 'TimeTable/' + timetable)).then((tsnapshot) => {
+                      var tableData = {};
+                      if (tsnapshot.exists()) {
+                        // If timetable exists, populate table data
+                        tableData = {
+                          m1: tsnapshot.val().m1,
+                          m2: tsnapshot.val().m2,
+                          m3: tsnapshot.val().m3,
+                          m4: tsnapshot.val().m4,
+                          m5: tsnapshot.val().m5,
+                          m6: tsnapshot.val().m6,
+                          tu1: tsnapshot.val().tu1,
+                          tu2: tsnapshot.val().tu2,
+                          tu3: tsnapshot.val().tu3,
+                          tu4: tsnapshot.val().tu4,
+                          tu5: tsnapshot.val().tu5,
+                          tu6: tsnapshot.val().tu6,
+                          w1: tsnapshot.val().w1,
+                          w2: tsnapshot.val().w2,
+                          w3: tsnapshot.val().w3,
+                          w4: tsnapshot.val().w4,
+                          w5: tsnapshot.val().w5,
+                          w6: tsnapshot.val().w6,
+                          th1: tsnapshot.val().th1,
+                          th2: tsnapshot.val().th2,
+                          th3: tsnapshot.val().th3,
+                          th4: tsnapshot.val().th4,
+                          th5: tsnapshot.val().th5,
+                          th6: tsnapshot.val().th6,
+                          f1: tsnapshot.val().f1,
+                          f2: tsnapshot.val().f2,
+                          f3: tsnapshot.val().f3,
+                          f4: tsnapshot.val().f4,
+                          f5: tsnapshot.val().f5,
+                          f6: tsnapshot.val().f6,
+                          s1: tsnapshot.val().s1,
+                          s2: tsnapshot.val().s2,
+                          s3: tsnapshot.val().s3,
+                          s4: tsnapshot.val().s4,
+                          s5: tsnapshot.val().s5
+                          // Add more timetable keys as needed
+                        };
+                      } else {
+                        // If timetable doesn't exist, set m1 and m2 to null
+                        tableData = {
+                          m1: null,
+                          m2: null,
+                          m3: null,
+                          m4: null,
+                          m5: null,
+                          m6: null,
+                          tu1: null,
+                          tu2: null,
+                          tu3: null,
+                          tu4: null,
+                          tu5: null,
+                          tu6: null,
+                          w1: null,
+                          w2: null,
+                          w3: null,
+                          w4: null,
+                          w5: null,
+                          w6: null,
+                          th1: null,
+                          th2: null,
+                          th3: null,
+                          th4: null,
+                          th5: null,
+                          th6: null,
+                          f1: null,
+                          f2: null,
+                          f3: null,
+                          f4: null,
+                          f5: null,
+                          f6: null,
+                          s1: null,
+                          s2: null,
+                          s3: null,
+                          s4: null,
+                          s5: null
+                          // Add more timetable keys as needed
+                        };
+                      }
+    
+                      // Store table data in sessionStorage
+                      sessionStorage.setItem("table-data", JSON.stringify(tableData));
+                      sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+    
+                      // Redirect to dashboard
+                      window.location.href = 'dashboard.html';
+                    }).catch((error) => {
+                      console.error("Error fetching timetable data:", error);
+                    });
+                  }
+                })
+              })
+              .catch((error) => {
+                alert(error.message);
+                console.log(error.code);
+                console.log(error.message);
+              });
+    
+    
+          }
+        }
+    
+        let ForgotPassword = () => {
+          sendPasswordResetEmail(auth, email.value)
+            .then(() => {
+              alert("A password reset link has been sent to your email");
+            })
+            .catch((error) => {
+              console.log(error.code);
+              console.log(error.message);
+            })
+        }
+    
+        MainForm.addEventListener('submit', SignInUser);
+        Forgotpasslabel.addEventListener('click', ForgotPassword);
+    
+    
+    
+        document.onkeydown = function (e) {
+          if (event.keyCode == 123) {
+            return false;
+          }
+    
+          if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            return false;
+          }
+    
+          if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            return false;
+          }
+    
+          if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
+          }
+        }
+      </script>
 </body>
 
 </html>

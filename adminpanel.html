@@ -1,11 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="./CSS/adminStyle.css">
+    <style>
+        .logoutbtn {
+            width: 100px;
+            background-color: #046e78;
+            height: 30px;
+            border-radius: 10px;
+        }
+
+        .btn-div {
+            margin-top: -650px;
+            padding-left: 1400px;
+            position: fixed;
+        }
+    </style>
 </head>
-<body>
-    <p>THIS IS ADMIN PANEL PAGE</p>
+
+<body oncontextmenu="return false;">
+    <div class="btn-div">
+        <header>
+            <button class="logoutbtn" type="button" id="signoutbutton">Logout</button>
+        </header>
+    </div>
+
+    <div class="card-container">
+        <a href="register.html" class="card-link">
+            <div class="box-left card">
+                <img src="img/student.png" alt="">
+                <h4>Register Student Here.</h4>
+            </div>
+        </a>
+
+        <a href="adminDashboard.html" class="card-link">
+            <div class="box-mid card">
+                <img src="img/dashboard.png" alt="">
+                <h4>Let's visit Dashboard.</h4>
+            </div>
+        </a>
+
+        <a href="adminTT.html" class="card-link">
+            <div class="box-right card">
+                <img src="img/study-time.png" alt="">
+                <h4>Add Time-Table Here.</h4>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+
+            document.cookie.split(";").forEach(function (c) {
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+            history.replaceState(null, '', 'index.html');
+
+            window.location.href = 'index.html'
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'index.html';
+
+        }
+
+        window.addEventListener('load', CheckCred);
+        SignoutBtn.addEventListener('click', Signout);
+
+
+            document.onkeydown=function(e){
+          if(event.keyCode == 123){
+            return false;
+          }
+
+          if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+            return false;
+          }
+
+          if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+            return false;
+          }
+
+          if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+            return false;
+          }
+        }
+
+    </script>
 </body>
+
 </html>

@@ -6,8 +6,159 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<style>
+  /* General Styling */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #1f293a;
+    margin: 0;
+    padding: 0;
+  }
+
+  #MainForm {
+    max-width: 400px;
+    margin: 50px auto;
+    background: #046e78;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  input[type="number"],
+  input[type="date"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #6501e5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: white;
+    background-color: rgb(121, 111, 111);
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    background-color: #f15c88;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+
+  /* Placeholder color */
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  input[type="password"]::placeholder,
+  input[type="number"]::placeholder {
+    color: #ffffff;
+  }
+
+  /* Select Styling */
+  select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #ffffff;
+    background-color: rgb(121, 111, 111);
+  }
+
+  /* Form specific styling */
+  #MainForm select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  /* Button hover effect */
+  .btn:hover {
+    opacity: 0.8;
+  }
+
+  /* Custom styling for the placeholders of inputs */
+  input[type="text"]::-webkit-input-placeholder,
+  input[type="email"]::-webkit-input-placeholder,
+  input[type="password"]::-webkit-input-placeholder,
+  input[type="number"]::-webkit-input-placeholder,
+  input[type="date"]::-webkit-input-placeholder {
+    color: #ffffff;
+  }
+
+  input[type="text"]::-moz-placeholder,
+  input[type="email"]::-moz-placeholder,
+  input[type="password"]::-moz-placeholder,
+  input[type="number"]::-moz-placeholder,
+  input[type="date"]::-moz-placeholder {
+    color: #ffffff;
+  }
+
+  input[type="text"]:-ms-input-placeholder,
+  input[type="email"]:-ms-input-placeholder,
+  input[type="password"]:-ms-input-placeholder,
+  input[type="number"]:-ms-input-placeholder,
+  input[type="date"]:-ms-input-placeholder {
+    color: #ffffff;
+  }
+
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  input[type="password"]::placeholder,
+  input[type="number"]::placeholder,
+  input[type="date"]::placeholder {
+    color: #ffffff;
+  }
+
+  /* Custom styling for select placeholders */
+  select::-webkit-input-placeholder {
+    color: #aaa;
+  }
+
+  select::-moz-placeholder {
+    color: #aaa;
+  }
+
+  select:-ms-input-placeholder {
+    color: #aaa;
+  }
+
+  select::placeholder {
+    color: #aaa;
+  }
+
+  .btn {
+    width: 100px;
+    background-color: #046e78;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  .btn-div {
+    margin-top: -30px;
+    padding-left: 1400px;
+    position: fixed;
+  }
+</style>
 
 <body oncontextmenu="return false;">
+  <form id="logoutform">
+    <div class="btn-div">
+      <button class="btn" type="button" id="signoutbutton">logout</button>
+    </div>
+  </form>
   <form id="MainForm">
     <input id="email" type="email" placeholder="Email" required />
 
@@ -165,7 +316,45 @@
         });
     };
 
+
+    let SignoutBtn = document.getElementById('signoutbutton');
+
+    let Signout = () => {
+      sessionStorage.removeItem("user-creds");
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      history.replaceState(null, '', 'index.html');
+
+      window.location.href = 'index.html'
+    }
+
+    let CheckCred = () => {
+      if (!sessionStorage.getItem("user-creds"))
+        window.location.href = 'index.html';
+    }
+
+    window.addEventListener('load', CheckCred);
     MainForm.addEventListener('submit', RegisterUser);
+    SignoutBtn.addEventListener('click', Signout);
+
+    document.onkeydown = function (e) {
+      if (event.keyCode == 123) {
+        return false;
+      }
+
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+        return false;
+      }
+
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+        return false;
+      }
+
+      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        return false;
+      }
+    }
 
   </script>
 </body>

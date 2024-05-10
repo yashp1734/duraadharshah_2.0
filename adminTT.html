@@ -5,418 +5,509 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Computer Science Timetable</title>
+    <link rel="stylesheet" href="timetable.css" />
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .logoutbtn {
+            width: 100px;
+            background-color: #046e78;
+            height: 30px;
+            border-radius: 10px;
         }
 
-        th,
-        td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-
-        .recess {
-            border-top: 2px solid black;
-        }
-
-        .semester {
-            font-weight: bold;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #buttons {
+        .btn-div {
             margin-top: 20px;
+            padding-left: 1400px;
+            position: fixed;
         }
     </style>
 </head>
 
-<body>
-    <form id="MainForm">
-        <div id="dropdown-container">
-            <select id="program-dropdown" onchange="updateSemesterDropdown()" required>
-                <option value="" selected disabled>Select Program</option>
-                <option value="B-Tech">B.Tech</option>
-                <option value="M-Tech">M.Tech</option>
-                <option value="Diploma">Diploma</option>
-            </select>
-            <select id="semester-dropdown" onchange="showTimetable()" required>
-                <option value="" selected disabled>Select Semester</option>
-                <!-- Options will be populated dynamically based on the selection in the first dropdown -->
-            </select>
+<body oncontextmenu="return false;">
+    <div class="container">
+        <!-- <div class="forms-container"> -->
+        <div class="signin-signup">
+            <!-- <h3>Hii</h3> -->
         </div>
+        <!-- </div> -->
+        <div class="panels-container">
 
-        <div id="timetable" class="hidden">
-            <h2 id="timetable-heading"></h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" id="m1" placeholder="Period 1" required></td>
-                        <td><input type="text" id="tu1" placeholder="Period 1" required></td>
-                        <td><input type="text" id="w1" placeholder="Period 1" required></td>
-                        <td><input type="text" id="th1" placeholder="Period 1" required></td>
-                        <td><input type="text" id="f1" placeholder="Period 1" required></td>
-                        <td><input type="text" id="s1" placeholder="Period 1" required></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="m2" placeholder="Period 2" required></td>
-                        <td><input type="text" id="tu2" placeholder="Period 2" required></td>
-                        <td><input type="text" id="w2" placeholder="Period 2" required></td>
-                        <td><input type="text" id="th2" placeholder="Period 2" required></td>
-                        <td><input type="text" id="f2" placeholder="Period 2" required></td>
-                        <td><input type="text" id="s2" placeholder="Period 2" required></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="m3" placeholder="Period 3" required></td>
-                        <td><input type="text" id="tu3" placeholder="Period 3" required></td>
-                        <td><input type="text" id="w3" placeholder="Period 3" required></td>
-                        <td><input type="text" id="th3" placeholder="Period 3" required></td>
-                        <td><input type="text" id="f3" placeholder="Period 3" required></td>
-                        <td><input type="text" id="s3" placeholder="Period 3" required></td>
-                    </tr>
-                    <tr class="recess">
-                        <td colspan="6">Recess</td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="m4" placeholder="Period 4" required></td>
-                        <td><input type="text" id="tu4" placeholder="Period 4" required></td>
-                        <td><input type="text" id="w4" placeholder="Period 4" required></td>
-                        <td><input type="text" id="th4" placeholder="Period 4" required></td>
-                        <td><input type="text" id="f4" placeholder="Period 4" required></td>
-                        <td><input type="text" id="s4" placeholder="Period 4" required></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="m5" placeholder="Period 5" required></td>
-                        <td><input type="text" id="tu5" placeholder="Period 5" required></td>
-                        <td><input type="text" id="w5" placeholder="Period 5" required></td>
-                        <td><input type="text" id="th5" placeholder="Period 5" required></td>
-                        <td><input type="text" id="f5" placeholder="Period 5" required></td>
-                        <td><input type="text" id="s5" placeholder="Period 5" required></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="m6" placeholder="Period 6" required></td>
-                        <td><input type="text" id="tu6" placeholder="Period 6" required></td>
-                        <td><input type="text" id="w6" placeholder="Period 6" required></td>
-                        <td><input type="text" id="th6" placeholder="Period 6" required></td>
-                        <td><input type="text" id="f6" placeholder="Period 6" required></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="timetable" class="hidden">
 
-            <div id="buttons">
-                <button id="AddBtn">Add</button>
-                <button id="RetBtn">Retrieve</button>
-                <button id="UpBtn">Update</button>
-                <button id="DelBtn">Delete</button>
-                <button onclick="cancelTimetable()">Cancel</button>
+                <center>
+                    <h2 id="timetable-heading"></h2>
+                </center>
+                <form id="MainForm">
+                    <table class="tt yash">
+                        <thead>
+                            <tr>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="tt yash" type="text" id="m1" placeholder="Period 1" required></td>
+                                <td><input class="tt yash" type="text" id="tu1" placeholder="Period 1" required></td>
+                                <td><input class="tt yash" type="text" id="w1" placeholder="Period 1" required></td>
+                                <td><input class="tt yash" type="text" id="th1" placeholder="Period 1" required></td>
+                                <td><input class="tt yash" type="text" id="f1" placeholder="Period 1" required></td>
+                                <td><input class="tt yash" type="text" id="s1" placeholder="Period 1" required></td>
+                            </tr>
+                            <tr>
+                                <td><input class="tt yash" type="text" id="m2" placeholder="Period 2" required></td>
+                                <td><input class="tt yash" type="text" id="tu2" placeholder="Period 2" required></td>
+                                <td><input class="tt yash" type="text" id="w2" placeholder="Period 2" required></td>
+                                <td><input class="tt yash" type="text" id="th2" placeholder="Period 2" required></td>
+                                <td><input class="tt yash" type="text" id="f2" placeholder="Period 2" required></td>
+                                <td><input class="tt yash" type="text" id="s2" placeholder="Period 2" required></td>
+                            </tr>
+                            <tr>
+                                <td><input class="tt yash" type="text" id="m3" placeholder="Period 3" required></td>
+                                <td><input class="tt yash" type="text" id="tu3" placeholder="Period 3" required></td>
+                                <td><input class="tt yash" type="text" id="w3" placeholder="Period 3" required></td>
+                                <td><input class="tt yash" type="text" id="th3" placeholder="Period 3" required></td>
+                                <td><input class="tt yash" type="text" id="f3" placeholder="Period 3" required></td>
+                                <td><input class="tt yash" type="text" id="s3" placeholder="Period 3" required></td>
+                            </tr>
+                            <tr class="recess">
+                                <td colspan="6">Recess</td>
+                            </tr>
+                            <tr>
+                                <td><input class="tt yash" type="text" id="m4" placeholder="Period 4" required></td>
+                                <td><input class="tt yash" type="text" id="tu4" placeholder="Period 4" required></td>
+                                <td><input class="tt yash" type="text" id="w4" placeholder="Period 4" required></td>
+                                <td><input class="tt yash" type="text" id="th4" placeholder="Period 4" required></td>
+                                <td><input class="tt yash" type="text" id="f4" placeholder="Period 4" required></td>
+                                <td><input class="tt yash" type="text" id="s4" placeholder="Period 4" required></td>
+                            </tr>
+                            <tr>
+                                <td><input class="tt yash" type="text" id="m5" placeholder="Period 5" required></td>
+                                <td><input class="tt yash" type="text" id="tu5" placeholder="Period 5" required></td>
+                                <td><input class="tt yash" type="text" id="w5" placeholder="Period 5" required></td>
+                                <td><input class="tt yash" type="text" id="th5" placeholder="Period 5" required></td>
+                                <td><input class="tt yash" type="text" id="f5" placeholder="Period 5" required></td>
+                                <td><input class="tt yash" type="text" id="s5" placeholder="Period 5" required></td>
+                            </tr>
+                            <tr>
+                                <td><input class="tt yash" type="text" id="m6" placeholder="Period 6" required></td>
+                                <td><input class="tt yash" type="text" id="tu6" placeholder="Period 6" required></td>
+                                <td><input class="tt yash" type="text" id="w6" placeholder="Period 6" required></td>
+                                <td><input class="tt yash" type="text" id="th6" placeholder="Period 6" required></td>
+                                <td><input class="tt yash" type="text" id="f6" placeholder="Period 6" required></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="buttons">
+                        <button class="btn transparent" id="AddBtn">Add</button>
+                        <button class="btn transparent" id="RetBtn">Retrieve</button>
+                        <button class="btn transparent" id="UpBtn">Update</button>
+                        <button class="btn transparent" id="DelBtn">Delete</button>
+                    </div>
+                    <div>
+                        <button class="btn transparent" type="button" onClick="window.location.reload()">
+                            Cancel
+                        </button>
+                    </div>
             </div>
+            <div class="panel left-panel">
+
+
+                <div class="content">
+
+                    <div id="dropdown-container">
+                        <select class="btn transparent" id="program-dropdown" onchange="updateSemesterDropdown()">
+                            <option class="select-style" value="" selected disabled>Select Program</option required>
+                            <option class="select-style" value="B-Tech">B.Tech</option>
+                            <option class="select-style" value="M-Tech">M.Tech</option>
+                            <option class="select-style" value="Diploma">Diploma</option>
+                        </select>
+                        <select class="btn transparent" id="semester-dropdown" onchange="showTimetable()" required>
+                            <option value="" selected disabled>Select Semester</option required>
+
+                        </select>
+                    </div>
+                    </form>
+
+
+                    <button class="btn transparent" id="sign-up-btn">
+                        Proceed
+                    </button>
+                    <div>
+                        <button class="btn transparent" type="button" id="signoutbutton-selection">
+                            Logout
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="panel right-panel">
+                <div class="content cancelbtn">
+                    <button class="btn transparent" id="signoutbutton-tt">
+                        Logout
+                    </button>
+
+
+                </div>
+
+            </div>
+            </tr>
         </div>
-    </form>
 
-    <script>
-        function updateSemesterDropdown() {
-            var programDropdown = document.getElementById("program-dropdown");
-            var semesterDropdown = document.getElementById("semester-dropdown");
-            var selectedProgram = programDropdown.value;
-            semesterDropdown.innerHTML = "";
-            if (selectedProgram === "B-Tech") {
-                addSemesterOptions(8);
-            } else if (selectedProgram === "M-Tech") {
-                addSemesterOptions(4);
-            } else if (selectedProgram === "Diploma") {
-                addSemesterOptions(6);
-            }
-        }
-        function addSemesterOptions(numSemesters) {
-            var semesterDropdown = document.getElementById("semester-dropdown");
+        <script>
+            let SignoutBtnSelection = document.getElementById('signoutbutton-selection');
+            let SignoutBtnTT = document.getElementById('signoutbutton-tt');
 
-            // Create the disabled option
-            var defaultOption = document.createElement("option");
-            defaultOption.text = "Select Semester";
-            defaultOption.value = "";
-            defaultOption.disabled = true;
-            defaultOption.selected = true; // Optionally select it by default
-            semesterDropdown.add(defaultOption);
-
-            // Add the rest of the semester options
-            for (var i = 1; i <= numSemesters; i++) {
-                var option = document.createElement("option");
-                option.text = i + " Semester";
-                option.value = i;
-                semesterDropdown.add(option);
-            }
-        }
-        function showTimetable() {
-            var program = document.getElementById("program-dropdown").value;
-            var semester = document.getElementById("semester-dropdown").value;
-            var semesterText = semester == 1 ? "1st" : semester == 2 ? "2nd" : semester == 3 ? "3rd" : semester + "th";
-            document.getElementById("timetable-heading").innerText = program + " Timetable - Semester " + semesterText;
-            document.getElementById("dropdown-container").classList.add("hidden");
-            document.getElementById("timetable").classList.remove("hidden");
-        }
-        function cancelTimetable() {
-            document.getElementById("program-dropdown").value = "";
-            // Reset semester dropdown
-            document.getElementById("semester-dropdown").innerHTML = '<option value="" selected disabled>Select Semester</option>';
-            // Show dropdown container
-            document.getElementById("dropdown-container").classList.remove("hidden");
-            // Hide timetable
-            document.getElementById("timetable").classList.add("hidden");
-        }
-
-    </script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-        import { getDatabase, set, ref, child, get, update, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
-            authDomain: "duraadharshah-ca0ca.firebaseapp.com",
-            databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
-            projectId: "duraadharshah-ca0ca",
-            storageBucket: "duraadharshah-ca0ca.appspot.com",
-            messagingSenderId: "625665554854",
-            appId: "1:625665554854:web:7dc2e4b4c0469413603767",
-            measurementId: "G-W9RFMNZKC9"
-        };
-
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase();
-
-        let program = document.getElementById('program-dropdown');
-        let semester = document.getElementById('semester-dropdown');
-        let m1 = document.getElementById('m1');
-        let m2 = document.getElementById('m2');
-        let m3 = document.getElementById('m3');
-        let m4 = document.getElementById('m4');
-        let m5 = document.getElementById('m5');
-        let m6 = document.getElementById('m6');
-
-        let tu1 = document.getElementById('tu1');
-        let tu2 = document.getElementById('tu2');
-        let tu3 = document.getElementById('tu3');
-        let tu4 = document.getElementById('tu4');
-        let tu5 = document.getElementById('tu5');
-        let tu6 = document.getElementById('tu6');
-
-        let w1 = document.getElementById('w1');
-        let w2 = document.getElementById('w2');
-        let w3 = document.getElementById('w3');
-        let w4 = document.getElementById('w4');
-        let w5 = document.getElementById('w5');
-        let w6 = document.getElementById('w6');
-
-        let th1 = document.getElementById('th1');
-        let th2 = document.getElementById('th2');
-        let th3 = document.getElementById('th3');
-        let th4 = document.getElementById('th4');
-        let th5 = document.getElementById('th5');
-        let th6 = document.getElementById('th6');
-
-        let f1 = document.getElementById('f1');
-        let f2 = document.getElementById('f2');
-        let f3 = document.getElementById('f3');
-        let f4 = document.getElementById('f4');
-        let f5 = document.getElementById('f5');
-        let f6 = document.getElementById('f6');
-
-        let s1 = document.getElementById('s1');
-        let s2 = document.getElementById('s2');
-        let s3 = document.getElementById('s3');
-        let s4 = document.getElementById('s4');
-        let s5 = document.getElementById('s5');
-
-
-        let AddBtn = document.getElementById('AddBtn');
-        let RetBtn = document.getElementById('RetBtn');
-        let UpBtn = document.getElementById('UpBtn');
-        let DelBtn = document.getElementById('DelBtn');
-        let MainForm = document.getElementById('MainForm');
-
-
-        function AddData(){
-            set(ref(db, 'TimeTable/' + program.value + '-' + semester.value), {
-                m1: m1.value,
-                m2: m2.value,
-                m3: m3.value,
-                m4: m4.value,
-                m5: m5.value,
-                m6: m6.value,
-                tu1: tu1.value,
-                tu2: tu2.value,
-                tu3: tu3.value,
-                tu4: tu4.value,
-                tu5: tu5.value,
-                tu6: tu6.value,
-                w1: w1.value,
-                w2: w2.value,
-                w3: w3.value,
-                w4: w4.value,
-                w5: w5.value,
-                w6: w6.value,
-                th1: th1.value,
-                th2: th2.value,
-                th3: th3.value,
-                th4: th4.value,
-                th5: th5.value,
-                th6: th6.value,
-                f1: f1.value,
-                f2: f2.value,
-                f3: f3.value,
-                f4: f4.value,
-                f5: f5.value,
-                f6: f6.value,
-                s1: s1.value,
-                s2: s2.value,
-                s3: s3.value,
-                s4: s4.value,
-                s5: s5.value,
-
-            }).then(() => {
-                alert("Time table inserted successfully");
-            }).catch((error) => {
-                alert("Unsuccessful");
-                console.log(error);
-            });
-
-        }
-
-
-        function RetData() {
-            const dbRef = ref(db);
-
-            get(child(dbRef, 'TimeTable/' + program.value + '-' + semester.value)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    m1.value = snapshot.val().m1;
-                    m2.value = snapshot.val().m2;
-                    m3.value = snapshot.val().m3;
-                    m4.value = snapshot.val().m4;
-                    m5.value = snapshot.val().m5;
-                    m6.value = snapshot.val().m6;
-                    tu1.value = snapshot.val().tu1;
-                    tu2.value = snapshot.val().tu2;
-                    tu3.value = snapshot.val().tu3;
-                    tu4.value = snapshot.val().tu4;
-                    tu5.value = snapshot.val().tu5;
-                    tu6.value = snapshot.val().tu6;
-                    w1.value = snapshot.val().w1;
-                    w2.value = snapshot.val().w2;
-                    w3.value = snapshot.val().w3;
-                    w4.value = snapshot.val().w4;
-                    w5.value = snapshot.val().w5;
-                    w6.value = snapshot.val().w6;
-                    th1.value = snapshot.val().th1;
-                    th2.value = snapshot.val().th2;
-                    th3.value = snapshot.val().th3;
-                    th4.value = snapshot.val().th4;
-                    th5.value = snapshot.val().th5;
-                    th6.value = snapshot.val().th6;
-                    f1.value = snapshot.val().f1;
-                    f2.value = snapshot.val().f2;
-                    f3.value = snapshot.val().f3;
-                    f4.value = snapshot.val().f4;
-                    f5.value = snapshot.val().f5;
-                    f6.value = snapshot.val().f6;
-                    s1.value = snapshot.val().s1;
-                    s2.value = snapshot.val().s2;
-                    s3.value = snapshot.val().s3;
-                    s4.value = snapshot.val().s4;
-                    s5.value = snapshot.val().s5;
-                }
-
-                else {
-                    alert("Table does not exists");
-                }
-            })
-                .catch((error) => {
-                    alert("Unsuccessful");
-                    console.log(error);
+            let Signout = () => {
+                sessionStorage.removeItem("user-creds");
+                document.cookie.split(";").forEach(function (c) {
+                    document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
                 });
-        }
+                history.replaceState(null, '', 'index.html');
 
-        function UpdateData() {
-            update(ref(db, 'TimeTable/' + program.value + '-' + semester.value), {
-                m1: m1.value,
-                m2: m2.value,
-                m3: m3.value,
-                m4: m4.value,
-                m5: m5.value,
-                m6: m6.value,
-                tu1: tu1.value,
-                tu2: tu2.value,
-                tu3: tu3.value,
-                tu4: tu4.value,
-                tu5: tu5.value,
-                tu6: tu6.value,
-                w1: w1.value,
-                w2: w2.value,
-                w3: w3.value,
-                w4: w4.value,
-                w5: w5.value,
-                w6: w6.value,
-                th1: th1.value,
-                th2: th2.value,
-                th3: th3.value,
-                th4: th4.value,
-                th5: th5.value,
-                th6: th6.value,
-                f1: f1.value,
-                f2: f2.value,
-                f3: f3.value,
-                f4: f4.value,
-                f5: f5.value,
-                f6: f6.value,
-                s1: s1.value,
-                s2: s2.value,
-                s3: s3.value,
-                s4: s4.value,
-                s5: s5.value,
+                window.location.href = 'index.html'
+            }
 
-            }).then(() => {
-                alert("Time table Updated successfully");
-            }).catch((error) => {
-                alert("Unsuccessful");
-                console.log(error);
+            let CheckCred = () => {
+                if (!sessionStorage.getItem("user-creds"))
+                    window.location.href = 'index.html';
+            }
+
+            window.addEventListener('load', CheckCred);
+            SignoutBtnSelection.addEventListener('click', Signout);
+            SignoutBtnTT.addEventListener('click', Signout);
+
+            const inputFields = document.querySelectorAll('.yash');
+            const maxLength = 5; // Adjust as needed
+
+            inputFields.forEach((input) => {
+                input.setAttribute('maxlength', maxLength);
             });
 
-        }
+            function updateSemesterDropdown() {
+                var programDropdown = document.getElementById("program-dropdown");
+                var semesterDropdown = document.getElementById("semester-dropdown");
+                var selectedProgram = programDropdown.value;
+                semesterDropdown.innerHTML = "";
+                if (selectedProgram === "B-Tech") {
+                    addSemesterOptions(8);
+                } else if (selectedProgram === "M-Tech") {
+                    addSemesterOptions(4);
+                } else if (selectedProgram === "Diploma") {
+                    addSemesterOptions(6);
+                }
+            }
+            function addSemesterOptions(numSemesters) {
+                var semesterDropdown = document.getElementById("semester-dropdown");
 
-        function DeleteData() {
-            remove(ref(db, 'TimeTable/' + program.value + '-' + semester.value))
-                .then(() => {
-                    alert("Time table Deleted successfully");
+
+                var defaultOption = document.createElement("option");
+                defaultOption.text = "Select Semester";
+                defaultOption.value = "";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                semesterDropdown.add(defaultOption);
+
+                for (var i = 1; i <= numSemesters; i++) {
+                    var option = document.createElement("option");
+                    option.text = i + " Semester";
+                    option.value = i;
+                    semesterDropdown.add(option);
+                }
+            }
+            function showTimetable() {
+                var program = document.getElementById("program-dropdown").value;
+                var semester = document.getElementById("semester-dropdown").value;
+                if (program && semester && event.target.id === "sign-up-btn") {
+                    var semesterText = semester == 1 ? "1st" : semester == 2 ? "2nd" : semester == 3 ? "3rd" : semester + "th";
+                    document.getElementById("timetable-heading").innerText = program + " Timetable - Semester " + semesterText;
+                    document.getElementById("dropdown-container").classList.add("hidden");
+                    document.getElementById("timetable").classList.remove("hidden");
+                }
+            }
+
+            document.getElementById("sign-up-btn").addEventListener("click", function () {
+                showTimetable();
+            });
+
+            const sign_in_btn = document.querySelector("#sign-in-btn");
+            const sign_up_btn = document.querySelector("#sign-up-btn");
+            const container = document.querySelector(".container");
+
+            sign_up_btn.addEventListener("click", () => {
+                var program = document.getElementById("program-dropdown").value;
+                var semester = document.getElementById("semester-dropdown").value;
+                if (program && semester && event.target.id === "sign-up-btn") {
+                    container.classList.add("sign-up-mode");
+                }
+
+            });
+
+            sign_in_btn.addEventListener("click", () => {
+                container.classList.remove("sign-up-mode");
+            });
+
+
+        </script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+            import { getDatabase, set, ref, child, get, update, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyDENcX5YsvKeXRCLnPSkFsBg2aLfxlnDHQ",
+                authDomain: "duraadharshah-ca0ca.firebaseapp.com",
+                databaseURL: "https://duraadharshah-ca0ca-default-rtdb.firebaseio.com",
+                projectId: "duraadharshah-ca0ca",
+                storageBucket: "duraadharshah-ca0ca.appspot.com",
+                messagingSenderId: "625665554854",
+                appId: "1:625665554854:web:7dc2e4b4c0469413603767",
+                measurementId: "G-W9RFMNZKC9"
+            };
+
+
+            const app = initializeApp(firebaseConfig);
+            const db = getDatabase();
+
+            let program = document.getElementById('program-dropdown');
+            let semester = document.getElementById('semester-dropdown');
+            let m1 = document.getElementById('m1');
+            let m2 = document.getElementById('m2');
+            let m3 = document.getElementById('m3');
+            let m4 = document.getElementById('m4');
+            let m5 = document.getElementById('m5');
+            let m6 = document.getElementById('m6');
+
+            let tu1 = document.getElementById('tu1');
+            let tu2 = document.getElementById('tu2');
+            let tu3 = document.getElementById('tu3');
+            let tu4 = document.getElementById('tu4');
+            let tu5 = document.getElementById('tu5');
+            let tu6 = document.getElementById('tu6');
+
+            let w1 = document.getElementById('w1');
+            let w2 = document.getElementById('w2');
+            let w3 = document.getElementById('w3');
+            let w4 = document.getElementById('w4');
+            let w5 = document.getElementById('w5');
+            let w6 = document.getElementById('w6');
+
+            let th1 = document.getElementById('th1');
+            let th2 = document.getElementById('th2');
+            let th3 = document.getElementById('th3');
+            let th4 = document.getElementById('th4');
+            let th5 = document.getElementById('th5');
+            let th6 = document.getElementById('th6');
+
+            let f1 = document.getElementById('f1');
+            let f2 = document.getElementById('f2');
+            let f3 = document.getElementById('f3');
+            let f4 = document.getElementById('f4');
+            let f5 = document.getElementById('f5');
+            let f6 = document.getElementById('f6');
+
+            let s1 = document.getElementById('s1');
+            let s2 = document.getElementById('s2');
+            let s3 = document.getElementById('s3');
+            let s4 = document.getElementById('s4');
+            let s5 = document.getElementById('s5');
+
+
+            let AddBtn = document.getElementById('AddBtn');
+            let RetBtn = document.getElementById('RetBtn');
+            let UpBtn = document.getElementById('UpBtn');
+            let DelBtn = document.getElementById('DelBtn');
+            let MainForm = document.getElementById('MainForm');
+
+
+            function AddData() {
+                set(ref(db, 'TimeTable/' + program.value + '-' + semester.value), {
+                    m1: m1.value,
+                    m2: m2.value,
+                    m3: m3.value,
+                    m4: m4.value,
+                    m5: m5.value,
+                    m6: m6.value,
+                    tu1: tu1.value,
+                    tu2: tu2.value,
+                    tu3: tu3.value,
+                    tu4: tu4.value,
+                    tu5: tu5.value,
+                    tu6: tu6.value,
+                    w1: w1.value,
+                    w2: w2.value,
+                    w3: w3.value,
+                    w4: w4.value,
+                    w5: w5.value,
+                    w6: w6.value,
+                    th1: th1.value,
+                    th2: th2.value,
+                    th3: th3.value,
+                    th4: th4.value,
+                    th5: th5.value,
+                    th6: th6.value,
+                    f1: f1.value,
+                    f2: f2.value,
+                    f3: f3.value,
+                    f4: f4.value,
+                    f5: f5.value,
+                    f6: f6.value,
+                    s1: s1.value,
+                    s2: s2.value,
+                    s3: s3.value,
+                    s4: s4.value,
+                    s5: s5.value,
+
+                }).then(() => {
+                    alert("Time table inserted successfully");
                 }).catch((error) => {
                     alert("Unsuccessful");
                     console.log(error);
                 });
 
-        }
-
-        AddBtn.addEventListener('click', AddData);
-        RetBtn.addEventListener('click', RetData);
-        UpBtn.addEventListener('click', UpdateData);
-        DelBtn.addEventListener('click', DeleteData);
+            }
 
 
-    </script>
+            function RetData() {
+                const dbRef = ref(db);
+
+                get(child(dbRef, 'TimeTable/' + program.value + '-' + semester.value)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        m1.value = snapshot.val().m1;
+                        m2.value = snapshot.val().m2;
+                        m3.value = snapshot.val().m3;
+                        m4.value = snapshot.val().m4;
+                        m5.value = snapshot.val().m5;
+                        m6.value = snapshot.val().m6;
+                        tu1.value = snapshot.val().tu1;
+                        tu2.value = snapshot.val().tu2;
+                        tu3.value = snapshot.val().tu3;
+                        tu4.value = snapshot.val().tu4;
+                        tu5.value = snapshot.val().tu5;
+                        tu6.value = snapshot.val().tu6;
+                        w1.value = snapshot.val().w1;
+                        w2.value = snapshot.val().w2;
+                        w3.value = snapshot.val().w3;
+                        w4.value = snapshot.val().w4;
+                        w5.value = snapshot.val().w5;
+                        w6.value = snapshot.val().w6;
+                        th1.value = snapshot.val().th1;
+                        th2.value = snapshot.val().th2;
+                        th3.value = snapshot.val().th3;
+                        th4.value = snapshot.val().th4;
+                        th5.value = snapshot.val().th5;
+                        th6.value = snapshot.val().th6;
+                        f1.value = snapshot.val().f1;
+                        f2.value = snapshot.val().f2;
+                        f3.value = snapshot.val().f3;
+                        f4.value = snapshot.val().f4;
+                        f5.value = snapshot.val().f5;
+                        f6.value = snapshot.val().f6;
+                        s1.value = snapshot.val().s1;
+                        s2.value = snapshot.val().s2;
+                        s3.value = snapshot.val().s3;
+                        s4.value = snapshot.val().s4;
+                        s5.value = snapshot.val().s5;
+                    }
+
+                    else {
+                        alert("Table does not exists");
+                    }
+                })
+                    .catch((error) => {
+                        alert("Unsuccessful");
+                        console.log(error);
+                    });
+            }
+
+            function UpdateData() {
+                update(ref(db, 'TimeTable/' + program.value + '-' + semester.value), {
+                    m1: m1.value,
+                    m2: m2.value,
+                    m3: m3.value,
+                    m4: m4.value,
+                    m5: m5.value,
+                    m6: m6.value,
+                    tu1: tu1.value,
+                    tu2: tu2.value,
+                    tu3: tu3.value,
+                    tu4: tu4.value,
+                    tu5: tu5.value,
+                    tu6: tu6.value,
+                    w1: w1.value,
+                    w2: w2.value,
+                    w3: w3.value,
+                    w4: w4.value,
+                    w5: w5.value,
+                    w6: w6.value,
+                    th1: th1.value,
+                    th2: th2.value,
+                    th3: th3.value,
+                    th4: th4.value,
+                    th5: th5.value,
+                    th6: th6.value,
+                    f1: f1.value,
+                    f2: f2.value,
+                    f3: f3.value,
+                    f4: f4.value,
+                    f5: f5.value,
+                    f6: f6.value,
+                    s1: s1.value,
+                    s2: s2.value,
+                    s3: s3.value,
+                    s4: s4.value,
+                    s5: s5.value,
+
+                }).then(() => {
+                    alert("Time table Updated successfully");
+                }).catch((error) => {
+                    alert("Unsuccessful");
+                    console.log(error);
+                });
+
+            }
+
+            function DeleteData() {
+                remove(ref(db, 'TimeTable/' + program.value + '-' + semester.value))
+                    .then(() => {
+                        alert("Time table Deleted successfully");
+                    }).catch((error) => {
+                        alert("Unsuccessful");
+                        console.log(error);
+                    });
+
+            }
+
+            AddBtn.addEventListener('click', AddData);
+            RetBtn.addEventListener('click', RetData);
+            UpBtn.addEventListener('click', UpdateData);
+            DelBtn.addEventListener('click', DeleteData);
+
+
+            document.onkeydown = function (e) {
+                if (event.keyCode == 123) {
+                    return false;
+                }
+
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                    return false;
+                }
+
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                    return false;
+                }
+
+                if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                    return false;
+                }
+            }
+
+        </script>
 </body>
 
 </html>
